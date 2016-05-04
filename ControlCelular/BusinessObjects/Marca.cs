@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BusinessObjects
 {
-   public class Cliente
+   public class Marca
     {
 
         private int _id;
@@ -23,8 +23,7 @@ namespace BusinessObjects
             get { return _nombre; }
             set { _nombre = value; }
         }
-        
 
-
+       
     }
 }
