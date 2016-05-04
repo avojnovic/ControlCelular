@@ -1,0 +1,8 @@
+C:\Users\avojn\Apps\ControlCelular\DAO\bin\Debug\DAO.dll
+C:\Users\avojn\Apps\ControlCelular\DAO\bin\Debug\DAO.pdb
+C:\Users\avojn\Apps\ControlCelular\DAO\bin\Debug\BusinessObjects.dll
+C:\Users\avojn\Apps\ControlCelular\DAO\bin\Debug\BusinessObjects.pdb
+C:\Users\avojn\Apps\ControlCelular\DAO\obj\Debug\DAO.csprojResolveAssemblyReference.cache
+C:\Users\avojn\Apps\ControlCelular\DAO\obj\Debug\DAO.dll
+C:\Users\avojn\Apps\ControlCelular\DAO\obj\Debug\DAO.pdb
+C:\Users\avojn\Apps\ControlCelular\DAO\bin\Debug\DAO.dll.config

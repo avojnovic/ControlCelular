@@ -1,0 +1,4 @@
+C:\Users\avojn\Apps\ControlCelular\BusinessObjects\bin\Debug\BusinessObjects.dll
+C:\Users\avojn\Apps\ControlCelular\BusinessObjects\bin\Debug\BusinessObjects.pdb
+C:\Users\avojn\Apps\ControlCelular\BusinessObjects\obj\Debug\BusinessObjects.dll
+C:\Users\avojn\Apps\ControlCelular\BusinessObjects\obj\Debug\BusinessObjects.pdb
