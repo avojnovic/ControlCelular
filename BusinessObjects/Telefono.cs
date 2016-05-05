@@ -47,6 +47,13 @@ namespace BusinessObjects
             set { _proveedor = value; }
         }
 
+        private decimal _costo;
+
+        public decimal Costo
+        {
+            get { return _costo; }
+            set { _costo = value; }
+        }
 
         private bool _borrado;
 

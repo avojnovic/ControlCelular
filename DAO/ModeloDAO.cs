@@ -74,6 +74,7 @@ namespace DAO
             cmd.CommandText = @"INSERT INTO Modelo (Marca,Modelo,Nombre,Procesador,SistemaOperativo,Descripcion,Borrado) 
                                 VALUES(@Marca,@Modelo,@Nombre,@Procesador,@SistemaOperativo,@Descripcion,@Borrado)";
 
+
             cmd.CommandType = CommandType.Text;
 
             addParameters(x, cmd,false);

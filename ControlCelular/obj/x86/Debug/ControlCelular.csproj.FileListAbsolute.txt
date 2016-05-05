@@ -22,3 +22,5 @@ D:\Proyectos\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.csprojRe
 D:\Proyectos\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.Main.resources
 D:\Proyectos\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.Properties.Resources.resources
 D:\Proyectos\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.csproj.GenerateResource.Cache
+C:\Users\avojn\Apps\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.FormModelo.resources
+C:\Users\avojn\Apps\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.FormTelefono.resources

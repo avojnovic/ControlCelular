@@ -39,6 +39,11 @@ namespace BusinessObjects
             set { _sistemaOperativo = value; }
         }
 
+        public string SistemaOperativoNombre
+        {
+            get { return _sistemaOperativo.Nombre; }
+        }
+
         private string _procesador;
 
         public string Procesador
@@ -53,6 +58,11 @@ namespace BusinessObjects
         {
             get { return _marca; }
             set { _marca = value; }
+        }
+
+        public string MarcaNombre
+        {
+            get { return _marca.Nombre; }
         }
 
         private string _descripcion;
@@ -70,5 +80,12 @@ namespace BusinessObjects
             get { return _borrado; }
             set { _borrado = value; }
         }
+
+
+        public string ModeloDescripcion
+        {
+            get { return _modelo + " - " + _nombre; }
+        }
+
     }
 }
