@@ -18,7 +18,8 @@ namespace ControlCelular
         Dictionary<int, SistemaOperativo> _sistemasOperativos = new Dictionary<int, SistemaOperativo>();
         Dictionary<int, Modelo> _modelos = new Dictionary<int, Modelo>();
         Dictionary<int, Proveedor> _proveedores = new Dictionary<int, Proveedor>();
-        Dictionary<int, Telefono> _telefonos = new Dictionary<int, Telefono>(); 
+        Dictionary<int, Telefono> _telefonos = new Dictionary<int, Telefono>();
+        Dictionary<int, Cliente> _clientes = new Dictionary<int, Cliente>(); 
 
                             
         public Main()
@@ -39,6 +40,28 @@ namespace ControlCelular
             
         }
 
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            string name = tabControl1.SelectedTab.Name;
+           
+            //if (name == "tabTelefonos" && dataGridViewTelefonos.DataSource == null)
+            //{
+            //    refreshTelefonos(false);
+            //}
+
+            if (name == "tabModelos" && dataGridViewModelos.DataSource == null)
+            {
+                refreshModelos(false);
+            }
+
+            if (name == "tabClientes" && dataGridViewClientes.DataSource == null)
+            {
+                refreshClientes(true);
+            }
+
+        }
+
         private void refreshTelefonos(bool fromDB)
         {
             if(fromDB)
@@ -49,7 +72,8 @@ namespace ControlCelular
 
         private void setGridViewTelefonos(List<Telefono> list)
         {
-            dataGridViewTelefonos.DataSource = list;
+    
+            dataGridViewTelefonos.DataSource = (from o in list where o.Borrado == false select o).ToList();
             dataGridViewTelefonos.Columns["Proveedor"].Visible = false;
             dataGridViewTelefonos.Columns["Borrado"].Visible = false;
             dataGridViewTelefonos.Columns["Modelo"].Visible = false;
@@ -70,14 +94,35 @@ namespace ControlCelular
         private void setGridViewModelos(List<Modelo> list)
         {
 
-            dataGridViewModelos.DataSource = list;
+            dataGridViewModelos.DataSource = (from o in list where o.Borrado == false select o).ToList();
             dataGridViewModelos.Columns["SistemaOperativo"].Visible = false;
             dataGridViewModelos.Columns["Marca"].Visible = false;
             dataGridViewModelos.Columns["Modelo1"].HeaderText = "Modelo";
             dataGridViewModelos.Columns["SistemaOperativoNombre"].HeaderText = "Sistema Operativo";
             dataGridViewModelos.Columns["MarcaNombre"].HeaderText = "Marca";
             dataGridViewModelos.Columns["Borrado"].Visible = false;
+            dataGridViewModelos.Columns["ModeloDescripcion"].Visible = false;
             dataGridViewModelos.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.ColumnHeader);
+        }
+
+
+        private void refreshClientes(bool fromDB)
+        {
+            if (fromDB)
+                _clientes = ClienteDAO.get(Application.StartupPath);
+
+            setGridViewClientes(_clientes.Values.ToList());
+        }
+
+        private void setGridViewClientes(List<Cliente> list)
+        {
+
+
+            dataGridViewClientes.DataSource = (from o in list where o.Borrado == false select o).ToList();
+
+            dataGridViewClientes.Columns["Borrado"].Visible = false;
+
+            dataGridViewClientes.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.ColumnHeader);
         }
 
         private void txtBuscarTefonos_TextChanged(object sender, EventArgs e)
@@ -85,7 +130,7 @@ namespace ControlCelular
             if (txtBuscarTefonos.Text.Length > 0)
             {
                 var res = (from o in _telefonos.Values.ToList()
-                           where o.Imei.Trim().ToUpper().Contains(txtBuscarTefonos.Text.Trim().ToUpper()) || o.Color.Trim().ToUpper().Contains(txtBuscarTefonos.Text.Trim().ToUpper()) || o.ModeloDescripcion.Trim().ToUpper().Contains(txtBuscarTefonos.Text.Trim().ToUpper()) || o.ProveedorNombre.Trim().ToUpper().Contains(txtBuscarTefonos.Text.Trim().ToUpper())
+                           where o.Borrado==false && (o.Imei.Trim().ToUpper().Contains(txtBuscarTefonos.Text.Trim().ToUpper()) || o.Color.Trim().ToUpper().Contains(txtBuscarTefonos.Text.Trim().ToUpper()) || o.ModeloDescripcion.Trim().ToUpper().Contains(txtBuscarTefonos.Text.Trim().ToUpper()) || o.ProveedorNombre.Trim().ToUpper().Contains(txtBuscarTefonos.Text.Trim().ToUpper()))
                            select o);
 
 
@@ -149,17 +194,7 @@ namespace ControlCelular
 
         }
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-          string name=  tabControl1.SelectedTab.Text;
-
-          if (name == "Modelos" && dataGridViewModelos.DataSource==null)
-          {
-              refreshModelos(false);
-          }
-
-        }
+       
 
         private void BtnNuevoModelo_Click(object sender, EventArgs e)
         {
@@ -183,6 +218,46 @@ namespace ControlCelular
             _form.ShowDialog();
 
             refreshModelos(true);
+        }
+
+        private void btnClienteNuevo_Click(object sender, EventArgs e)
+        {
+            FormCliente _form = new FormCliente();
+
+            _form.ShowDialog();
+            refreshClientes(true);
+        }
+
+        private void txtBuscarClientes_TextChanged(object sender, EventArgs e)
+        {
+
+            if (txtBuscarClientes.Text.Length > 0)
+            {
+                var res = (from o in _clientes.Values.ToList()
+                           where o.Nombre.Trim().ToUpper().Contains(txtBuscarClientes.Text.Trim().ToUpper()) || o.Apellido.Trim().ToUpper().Contains(txtBuscarClientes.Text.Trim().ToUpper()) || o.Descripcion.Trim().ToUpper().Contains(txtBuscarClientes.Text.Trim().ToUpper()) || o.NombreCompleto.Trim().ToUpper().Contains(txtBuscarClientes.Text.Trim().ToUpper()) 
+                           select o);
+
+                setGridViewClientes((List<Cliente>)res.ToList());
+
+            }
+            else if (txtBuscarClientes.Text.Length == 0)
+            {
+
+                setGridViewClientes(_clientes.Values.ToList());
+
+            }
+        }
+
+        private void dataGridViewClientes_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Cliente currentObject = (Cliente)dataGridViewClientes.CurrentRow.DataBoundItem;
+
+            FormCliente _form = new FormCliente();
+
+            _form._cliente = currentObject;
+            _form.ShowDialog();
+
+            refreshClientes(true);
         }
 
        

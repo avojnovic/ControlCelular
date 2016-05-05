@@ -14,3 +14,11 @@ D:\Proyectos\ControlCelular\DAO\bin\Debug\BusinessObjects.pdb
 D:\Proyectos\ControlCelular\DAO\obj\Debug\DAO.csprojResolveAssemblyReference.cache
 D:\Proyectos\ControlCelular\DAO\obj\Debug\DAO.dll
 D:\Proyectos\ControlCelular\DAO\obj\Debug\DAO.pdb
+D:\ControlCelular\DAO\bin\Debug\DAO.dll.config
+D:\ControlCelular\DAO\bin\Debug\DAO.dll
+D:\ControlCelular\DAO\bin\Debug\DAO.pdb
+D:\ControlCelular\DAO\bin\Debug\BusinessObjects.dll
+D:\ControlCelular\DAO\bin\Debug\BusinessObjects.pdb
+D:\ControlCelular\DAO\obj\Debug\DAO.csprojResolveAssemblyReference.cache
+D:\ControlCelular\DAO\obj\Debug\DAO.dll
+D:\ControlCelular\DAO\obj\Debug\DAO.pdb

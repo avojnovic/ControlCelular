@@ -6,3 +6,7 @@ D:\Proyectos\ControlCelular\BusinessObjects\bin\Debug\BusinessObjects.dll
 D:\Proyectos\ControlCelular\BusinessObjects\bin\Debug\BusinessObjects.pdb
 D:\Proyectos\ControlCelular\BusinessObjects\obj\Debug\BusinessObjects.dll
 D:\Proyectos\ControlCelular\BusinessObjects\obj\Debug\BusinessObjects.pdb
+D:\ControlCelular\BusinessObjects\bin\Debug\BusinessObjects.dll
+D:\ControlCelular\BusinessObjects\bin\Debug\BusinessObjects.pdb
+D:\ControlCelular\BusinessObjects\obj\Debug\BusinessObjects.dll
+D:\ControlCelular\BusinessObjects\obj\Debug\BusinessObjects.pdb

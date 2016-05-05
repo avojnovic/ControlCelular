@@ -53,28 +53,77 @@ namespace ControlCelular
             }
         }
 
-        private void BtnGuardar_Click(object sender, EventArgs e)
+
+        private bool validar()
         {
-            bool insert=false;
-            if (_telenofo == null)
-            {//Nuevo
-                _telenofo = new Telefono();
-                insert=true;
+            bool ok = true;
+            if (TxtColor.Text.Trim() == String.Empty)
+            {
+                TxtColor.BackColor = Color.LightCyan;
+                ok = false;
+            }
+            else
+            {
+                TxtColor.BackColor = Color.White;
+            }
+            if (txtCosto.Text.Trim() == String.Empty)
+            {
+                txtCosto.BackColor = Color.LightCyan;
+                ok = false;
+            }
+            else
+            {
+                txtCosto.BackColor = Color.White;
+            }
+            if (TxtImei.Text.Trim() == String.Empty)
+            {
+                TxtImei.BackColor = Color.LightCyan;
+                ok = false;
+            }
+            else
+            {
+                TxtImei.BackColor = Color.White;
+            }
+            if (dataGridViewModelos.SelectedRows.Count==0)
+            {
+                txtBuscarModelos.BackColor = Color.LightCyan;
+                ok = false;
+            }
+            else
+            {
+                txtBuscarModelos.BackColor = Color.White;
             }
 
-            _telenofo.Imei = TxtImei.Text.ToString();
-            _telenofo.Modelo = (Modelo)dataGridViewModelos.CurrentRow.DataBoundItem;
-            _telenofo.Proveedor = (Proveedor)CmbProveedor.SelectedItem;
-            _telenofo.Color=TxtColor.Text.ToString();
-            _telenofo.Borrado=false;
+            return ok;
 
-            if(insert)
-                TelefonoDAO.insert(Application.StartupPath,_telenofo);
-            else
-                TelefonoDAO.update(Application.StartupPath,_telenofo);
 
-  
-            this.Close();
+        }
+
+        private void BtnGuardar_Click(object sender, EventArgs e)
+        {
+            if (validar())
+            {
+                bool insert = false;
+                if (_telenofo == null)
+                {//Nuevo
+                    _telenofo = new Telefono();
+                    insert = true;
+                }
+
+                _telenofo.Imei = TxtImei.Text.ToString();
+                _telenofo.Modelo = (Modelo)dataGridViewModelos.CurrentRow.DataBoundItem;
+                _telenofo.Proveedor = (Proveedor)CmbProveedor.SelectedItem;
+                _telenofo.Color = TxtColor.Text.ToString();
+                _telenofo.Borrado = false;
+
+                if (insert)
+                    TelefonoDAO.insert(Application.StartupPath, _telenofo);
+                else
+                    TelefonoDAO.update(Application.StartupPath, _telenofo);
+
+
+                this.Close();
+            }
       
         }
 
@@ -90,6 +139,7 @@ namespace ControlCelular
             {
                 _telenofo.Borrado = true;
                 TelefonoDAO.update(Application.StartupPath, _telenofo);
+                this.Close();
             }
             else if (dialogResult == DialogResult.No)
             {
@@ -110,7 +160,7 @@ namespace ControlCelular
         private void setGridViewModelos(List<Modelo> list)
         {
 
-            dataGridViewModelos.DataSource = list;
+            dataGridViewModelos.DataSource = (from o in list where o.Borrado == false select o).ToList();
             dataGridViewModelos.Columns["SistemaOperativo"].Visible = false;
             dataGridViewModelos.Columns["Marca"].Visible = false;
             dataGridViewModelos.Columns["Modelo1"].HeaderText = "Modelo";

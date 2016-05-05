@@ -24,6 +24,23 @@ namespace BusinessObjects
             set { _nombre = value; }
         }
 
+        private string _apellido;
+
+        public string Apellido
+        {
+            get { return _apellido; }
+            set { _apellido = value; }
+        }
+
+        private string _descripcion;
+
+        public string Descripcion
+        {
+            get { return _descripcion; }
+            set { _descripcion = value; }
+        }
+
+
         private bool _borrado;
 
         public bool Borrado
@@ -32,5 +49,10 @@ namespace BusinessObjects
             set { _borrado = value; }
         }
 
+        public string NombreCompleto
+        {
+            get { return _nombre + " " + _apellido; }
+           
+        }
     }
 }

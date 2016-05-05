@@ -51,31 +51,62 @@ namespace ControlCelular
             }
         }
 
+
+        private bool validar()
+        {
+            bool ok = true;
+            if (TxtNombre.Text.Trim() == String.Empty)
+            {
+                TxtNombre.BackColor = Color.LightCyan;
+                ok = false;
+            }
+            else
+            {
+                TxtNombre.BackColor = Color.White;
+            }
+            if (TxtModelo.Text.Trim() == String.Empty)
+            {
+                TxtModelo.BackColor = Color.LightCyan;
+                ok = false;
+            }
+            else
+            {
+                TxtModelo.BackColor = Color.White;
+            }
+           
+
+            return ok;
+
+
+        }
+
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
+            if (validar())
+            {
+                bool insert = false;
+                if (_modelo == null)
+                {//Nuevo
+                    _modelo = new Modelo();
+                    insert = true;
+                }
 
-            bool insert = false;
-            if (_modelo == null)
-            {//Nuevo
-                _modelo = new Modelo();
-                insert = true;
+                _modelo.Descripcion = txtDescripcion.Text.ToString();
+                _modelo.Marca = (Marca)CmbMarca.SelectedItem;
+                _modelo.SistemaOperativo = (SistemaOperativo)CmbSistemaOperativo.SelectedItem;
+                _modelo.Modelo1 = TxtModelo.Text.ToString();
+                _modelo.Nombre = TxtNombre.Text.ToString();
+                _modelo.Procesador = txtProcesador.Text.ToString();
+                _modelo.Borrado = false;
+
+                if (insert)
+                    ModeloDAO.insert(Application.StartupPath, _modelo);
+                else
+                    ModeloDAO.update(Application.StartupPath, _modelo);
+
+
+                this.Close();
             }
-
-            _modelo.Descripcion =txtDescripcion.Text.ToString();
-            _modelo.Marca = (Marca)CmbMarca.SelectedItem;
-            _modelo.SistemaOperativo = (SistemaOperativo)CmbSistemaOperativo.SelectedItem;
-            _modelo.Modelo1 = TxtModelo.Text.ToString();
-            _modelo.Nombre = TxtNombre.Text.ToString();
-            _modelo.Procesador = txtProcesador.Text.ToString();
-            _modelo.Borrado = false;
-
-            if (insert)
-               ModeloDAO.insert(Application.StartupPath, _modelo);
-            else
-               ModeloDAO.update(Application.StartupPath, _modelo);
-
-
-            this.Close();
         }
 
         private void BtnCancelar_Click(object sender, EventArgs e)
@@ -90,6 +121,7 @@ namespace ControlCelular
             {
                 _modelo.Borrado = true;
                 ModeloDAO.update(Application.StartupPath, _modelo);
+                this.Close();
             }
             else if (dialogResult == DialogResult.No)
             {

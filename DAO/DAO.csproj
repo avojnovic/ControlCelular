@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClienteDAO.cs" />
     <Compile Include="MarcaDAO.cs" />
     <Compile Include="ModeloDAO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="ProveedorDAO.cs" />
     <Compile Include="SistemaOperativoDAO.cs" />
     <Compile Include="TelefonoDAO.cs" />
+    <Compile Include="VentaDAO.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BusinessObjects\BusinessObjects.csproj">
