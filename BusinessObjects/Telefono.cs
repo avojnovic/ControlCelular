@@ -47,6 +47,25 @@ namespace BusinessObjects
             set { _proveedor = value; }
         }
 
-        
+
+        private bool _borrado;
+
+        public bool Borrado
+        {
+            get { return _borrado; }
+            set { _borrado = value; }
+        }
+
+
+        public string ProveedorNombre
+        {
+            get { return Proveedor.Nombre; }
+        }
+
+        public string ModeloDescripcion
+        {
+            get { return Modelo.Modelo1+" - "+Modelo.Nombre; }
+        }
+
     }
 }

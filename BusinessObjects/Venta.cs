@@ -43,5 +43,13 @@ namespace BusinessObjects
             get { return _cliente; }
             set { _cliente = value; }
         }
+
+        private bool _borrado;
+
+        public bool Borrado
+        {
+            get { return _borrado; }
+            set { _borrado = value; }
+        }
     }
 }

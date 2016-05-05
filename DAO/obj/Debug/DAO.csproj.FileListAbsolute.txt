@@ -6,3 +6,11 @@ C:\Users\avojn\Apps\ControlCelular\DAO\obj\Debug\DAO.csprojResolveAssemblyRefere
 C:\Users\avojn\Apps\ControlCelular\DAO\obj\Debug\DAO.dll
 C:\Users\avojn\Apps\ControlCelular\DAO\obj\Debug\DAO.pdb
 C:\Users\avojn\Apps\ControlCelular\DAO\bin\Debug\DAO.dll.config
+D:\Proyectos\ControlCelular\DAO\bin\Debug\DAO.dll.config
+D:\Proyectos\ControlCelular\DAO\bin\Debug\DAO.dll
+D:\Proyectos\ControlCelular\DAO\bin\Debug\DAO.pdb
+D:\Proyectos\ControlCelular\DAO\bin\Debug\BusinessObjects.dll
+D:\Proyectos\ControlCelular\DAO\bin\Debug\BusinessObjects.pdb
+D:\Proyectos\ControlCelular\DAO\obj\Debug\DAO.csprojResolveAssemblyReference.cache
+D:\Proyectos\ControlCelular\DAO\obj\Debug\DAO.dll
+D:\Proyectos\ControlCelular\DAO\obj\Debug\DAO.pdb

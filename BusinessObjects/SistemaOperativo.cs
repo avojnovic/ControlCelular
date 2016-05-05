@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BusinessObjects
 {
-   public class Marca
+    public class SistemaOperativo
     {
 
         private int _id;
@@ -31,6 +31,6 @@ namespace BusinessObjects
             get { return _borrado; }
             set { _borrado = value; }
         }
-       
+        
     }
 }

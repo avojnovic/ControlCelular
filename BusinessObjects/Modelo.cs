@@ -31,9 +31,9 @@ namespace BusinessObjects
             set { _modelo = value; }
         }
 
-        private string _sistemaOperativo;
+        private SistemaOperativo _sistemaOperativo;
 
-        public string SistemaOperativo
+        public SistemaOperativo SistemaOperativo
         {
             get { return _sistemaOperativo; }
             set { _sistemaOperativo = value; }
@@ -47,14 +47,28 @@ namespace BusinessObjects
             set { _procesador = value; }
         }
 
-        private string _
-
         private Marca _marca;
 
         public Marca Marca
         {
             get { return _marca; }
             set { _marca = value; }
+        }
+
+        private string _descripcion;
+
+        public string Descripcion
+        {
+            get { return _descripcion; }
+            set { _descripcion = value; }
+        }
+
+        private bool _borrado;
+
+        public bool Borrado
+        {
+            get { return _borrado; }
+            set { _borrado = value; }
         }
     }
 }

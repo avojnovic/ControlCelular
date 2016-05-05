@@ -24,6 +24,21 @@ namespace BusinessObjects
             set { _nombre = value; }
         }
 
+        private string _descripcion;
+
+        public string Descripcion
+        {
+            get { return _descripcion; }
+            set { _descripcion = value; }
+        }
+
+        private bool _borrado;
+
+        public bool Borrado
+        {
+            get { return _borrado; }
+            set { _borrado = value; }
+        }
 
     }
 }

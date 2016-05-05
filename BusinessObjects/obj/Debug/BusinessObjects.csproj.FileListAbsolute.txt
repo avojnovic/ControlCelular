@@ -2,3 +2,7 @@ C:\Users\avojn\Apps\ControlCelular\BusinessObjects\bin\Debug\BusinessObjects.dll
 C:\Users\avojn\Apps\ControlCelular\BusinessObjects\bin\Debug\BusinessObjects.pdb
 C:\Users\avojn\Apps\ControlCelular\BusinessObjects\obj\Debug\BusinessObjects.dll
 C:\Users\avojn\Apps\ControlCelular\BusinessObjects\obj\Debug\BusinessObjects.pdb
+D:\Proyectos\ControlCelular\BusinessObjects\bin\Debug\BusinessObjects.dll
+D:\Proyectos\ControlCelular\BusinessObjects\bin\Debug\BusinessObjects.pdb
+D:\Proyectos\ControlCelular\BusinessObjects\obj\Debug\BusinessObjects.dll
+D:\Proyectos\ControlCelular\BusinessObjects\obj\Debug\BusinessObjects.pdb
