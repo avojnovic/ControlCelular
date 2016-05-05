@@ -12,7 +12,7 @@ namespace DAO
     public static class TelefonoDAO
     {
 
-        public static Dictionary<int, Telefono> get(string dbPath)
+        public static Dictionary<int, Telefono> get(string dbPath, Dictionary<int, Modelo> _modelos, Dictionary<int, Proveedor> _proveedores)
         {
             string connection = DAO.Properties.Settings.Default.ConnectionString;
             connection = connection.Replace("PATH", dbPath);
@@ -20,24 +20,26 @@ namespace DAO
 
             OleDbConnection con = new OleDbConnection(connection);
             con.Open();
-            OleDbCommand cmd = new OleDbCommand("SELECT t.Id,t.Imei FROM Telefono t", con);
+            OleDbCommand cmd = new OleDbCommand(@"SELECT * FROM Telefono", con);
             OleDbDataReader reader = cmd.ExecuteReader();
 
 
-            Dictionary<int, Telefono> _telefonos = new Dictionary<int, Telefono>();
+            Dictionary<int, Telefono> _list = new Dictionary<int, Telefono>();
             while (reader.Read())
             {
-                Telefono m = new Telefono();
+                Telefono x = new Telefono();
 
-                m.Id = reader.GetInt32(0);
-                m.Imei = reader.GetString(1);
-                
-
-                _telefonos.Add(m.Id, m);
+                x.Id = reader.GetInt32(0);
+                x.Imei = reader.GetString(1);
+                x.Color = reader.GetString(2);
+                x.Modelo = _modelos[reader.GetInt32(3)];
+                x.Proveedor = _proveedores[reader.GetInt32(4)];
+                x.Borrado = reader.GetBoolean(5);
+                _list.Add(x.Id, x);
             }
             reader.Close();
 
-            return _telefonos;
+            return _list;
 
         }
 
@@ -48,18 +50,14 @@ namespace DAO
             OleDbConnection connection = new OleDbConnection(strconnection);
             OleDbCommand cmd = new OleDbCommand();
 
-            cmd.CommandText = @"INSERT INTO TELEFONO (IMEI,COLOR) 
-                                VALUES(@IMEI,@COLOR)";
+            cmd.CommandText = @"INSERT INTO TELEFONO (Imei,Color,Modelo,Proveedor,Borrado) 
+                                VALUES(@Imei,@Color,@Modelo,@Proveedor,@Borrado)";
 
             cmd.CommandType = CommandType.Text;
-
-            cmd.Parameters.Add("@IMEI", OleDbType.VarChar, 255).Value = x.Imei;
-            cmd.Parameters.Add("@COLOR", OleDbType.VarChar, 255).Value = x.Color;
-
+            addParameters(x, cmd,false);
             cmd.Connection = connection;
             connection.Open();
             //cmd.Transaction = connection.BeginTransaction();
-
             int rows = cmd.ExecuteNonQuery();
 
             string query2 = "Select @@Identity";
@@ -76,6 +74,20 @@ namespace DAO
             return ID;
         }
 
+        private static void addParameters(Telefono x, OleDbCommand cmd, bool id)
+        {
+            cmd.Parameters.Add("@Imei", OleDbType.VarChar, 255).Value = x.Imei;
+            cmd.Parameters.Add("@Color", OleDbType.VarChar, 255).Value = x.Color;
+            cmd.Parameters.Add("@Modelo", OleDbType.Integer, 255).Value = x.Modelo.Id;
+            cmd.Parameters.Add("@Proveedor", OleDbType.Integer, 255).Value = x.Proveedor.Id;
+            cmd.Parameters.Add("@Borrado", OleDbType.Boolean, 255).Value = x.Borrado;
+
+            if (id)
+            {
+                cmd.Parameters.Add("@ID", OleDbType.Integer, 255).Value = x.Id; 
+            }
+        }
+
         public static void update(string dbPath, Telefono x)
         {
             string strconnection = DAO.Properties.Settings.Default.ConnectionString;
@@ -83,19 +95,9 @@ namespace DAO
             OleDbConnection connection = new OleDbConnection(strconnection);
             OleDbCommand cmd = new OleDbCommand();
 
-            cmd.CommandText = @"UPDATE CONTACTOS SET IMEI=@IMEI,COLOR=@COLOR WHERE ID=@ID";
-
+            cmd.CommandText = @"UPDATE Telefono SET Imei=@Imei,Color=@Color,Modelo=@Modelo,Proveedor=@Proveedor,Borrado=@Borrado WHERE ID=@ID";
             cmd.CommandType = CommandType.Text;
-
-            cmd.Parameters.Add("@IMEI", OleDbType.VarChar, 255).Value = x.Imei;
-            cmd.Parameters.Add("@COLOR", OleDbType.VarChar, 255).Value = x.Color;
-            //cmd.Parameters.Add("@FECHANACIMIENTO", OleDbType.Date, 255).Value = x.FechaNacimiento.ToShortDateString();
-            //cmd.Parameters.Add("@EMAIL", OleDbType.VarChar, 255).Value = x.Email;
-            //cmd.Parameters.Add("@FechaModificacion", OleDbType.Date, 255).Value = x.FechaModificacion.Value.ToString();
-            cmd.Parameters.Add("@ID", OleDbType.Integer, 255).Value = x.Id;
-
-
-
+            addParameters(x, cmd, true);
             cmd.Connection = connection;
             connection.Open();
             cmd.Transaction = connection.BeginTransaction();
