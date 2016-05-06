@@ -24,10 +24,6 @@ D:\Proyectos\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.Properti
 D:\Proyectos\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.csproj.GenerateResource.Cache
 C:\Users\avojn\Apps\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.FormModelo.resources
 C:\Users\avojn\Apps\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.FormTelefono.resources
-D:\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.exe
-D:\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.pdb
-D:\ControlCelular\ControlCelular\bin\Debug\ControlCelular.exe
-D:\ControlCelular\ControlCelular\bin\Debug\ControlCelular.pdb
 D:\ControlCelular\ControlCelular\bin\Debug\BusinessObjects.dll
 D:\ControlCelular\ControlCelular\bin\Debug\DAO.dll
 D:\ControlCelular\ControlCelular\bin\Debug\BusinessObjects.pdb
@@ -39,3 +35,8 @@ D:\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.Main.resources
 D:\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.Properties.Resources.resources
 D:\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.csproj.GenerateResource.Cache
 C:\Users\avojn\Apps\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.FormCliente.resources
+D:\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.FormCliente.resources
+D:\ControlCelular\ControlCelular\bin\Debug\Control Celular.exe
+D:\ControlCelular\ControlCelular\bin\Debug\Control Celular.pdb
+D:\ControlCelular\ControlCelular\obj\x86\Debug\Control Celular.exe
+D:\ControlCelular\ControlCelular\obj\x86\Debug\Control Celular.pdb

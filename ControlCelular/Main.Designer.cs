@@ -37,6 +37,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabTelefonos = new System.Windows.Forms.TabPage();
@@ -50,13 +51,28 @@
             this.BtnNuevoModelo = new System.Windows.Forms.Button();
             this.txtBuscarModelos = new System.Windows.Forms.TextBox();
             this.tabVentas = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.txtImeiVenta = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtEquipoVenta = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtCostoVenta = new System.Windows.Forms.TextBox();
+            this.txtPrecioVenta = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cmbClienteVenta = new System.Windows.Forms.ComboBox();
+            this.btnAgregarVenta = new System.Windows.Forms.Button();
+            this.dataGridViewVentas = new System.Windows.Forms.DataGridView();
+            this.btnGuardarVenta = new System.Windows.Forms.Button();
+            this.btnCancelarVenta = new System.Windows.Forms.Button();
+            this.btnQuitarVenta = new System.Windows.Forms.Button();
             this.tabProveedores = new System.Windows.Forms.TabPage();
             this.tabClientes = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.btnClienteNuevo = new System.Windows.Forms.Button();
             this.txtBuscarClientes = new System.Windows.Forms.TextBox();
             this.dataGridViewClientes = new System.Windows.Forms.DataGridView();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabTelefonos.SuspendLayout();
@@ -66,6 +82,8 @@
             this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewModelos)).BeginInit();
             this.tabVentas.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVentas)).BeginInit();
             this.tabClientes.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClientes)).BeginInit();
@@ -291,6 +309,203 @@
             this.tabVentas.Text = "Ventas";
             this.tabVentas.UseVisualStyleBackColor = true;
             // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.ColumnCount = 7;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 18.62245F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 81.37755F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 266F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 102F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 91F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 232F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 186F));
+            this.tableLayoutPanel5.Controls.Add(this.txtImeiVenta, 1, 2);
+            this.tableLayoutPanel5.Controls.Add(this.label1, 1, 1);
+            this.tableLayoutPanel5.Controls.Add(this.txtEquipoVenta, 2, 2);
+            this.tableLayoutPanel5.Controls.Add(this.label2, 2, 1);
+            this.tableLayoutPanel5.Controls.Add(this.label3, 3, 1);
+            this.tableLayoutPanel5.Controls.Add(this.txtCostoVenta, 3, 2);
+            this.tableLayoutPanel5.Controls.Add(this.txtPrecioVenta, 4, 2);
+            this.tableLayoutPanel5.Controls.Add(this.label4, 4, 1);
+            this.tableLayoutPanel5.Controls.Add(this.label5, 5, 1);
+            this.tableLayoutPanel5.Controls.Add(this.cmbClienteVenta, 5, 2);
+            this.tableLayoutPanel5.Controls.Add(this.btnAgregarVenta, 6, 2);
+            this.tableLayoutPanel5.Controls.Add(this.dataGridViewVentas, 1, 3);
+            this.tableLayoutPanel5.Controls.Add(this.btnGuardarVenta, 6, 4);
+            this.tableLayoutPanel5.Controls.Add(this.btnCancelarVenta, 5, 4);
+            this.tableLayoutPanel5.Controls.Add(this.btnQuitarVenta, 6, 3);
+            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 6;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 62.39316F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 37.60684F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 354F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 102F));
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(1044, 586);
+            this.tableLayoutPanel5.TabIndex = 0;
+            // 
+            // txtImeiVenta
+            // 
+            this.txtImeiVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtImeiVenta.Location = new System.Drawing.Point(34, 81);
+            this.txtImeiVenta.Name = "txtImeiVenta";
+            this.txtImeiVenta.Size = new System.Drawing.Size(129, 20);
+            this.txtImeiVenta.TabIndex = 1;
+            this.txtImeiVenta.TextChanged += new System.EventHandler(this.txtImeiVenta_TextChanged);
+            this.txtImeiVenta.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtImeiVenta_KeyPress);
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(34, 53);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(129, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "IMEI";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // txtEquipoVenta
+            // 
+            this.txtEquipoVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtEquipoVenta.Location = new System.Drawing.Point(169, 81);
+            this.txtEquipoVenta.Name = "txtEquipoVenta";
+            this.txtEquipoVenta.ReadOnly = true;
+            this.txtEquipoVenta.Size = new System.Drawing.Size(260, 20);
+            this.txtEquipoVenta.TabIndex = 2;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(169, 53);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(260, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "EQUIPO";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(435, 53);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(96, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "COSTO";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // txtCostoVenta
+            // 
+            this.txtCostoVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtCostoVenta.Location = new System.Drawing.Point(435, 81);
+            this.txtCostoVenta.Name = "txtCostoVenta";
+            this.txtCostoVenta.ReadOnly = true;
+            this.txtCostoVenta.Size = new System.Drawing.Size(96, 20);
+            this.txtCostoVenta.TabIndex = 5;
+            // 
+            // txtPrecioVenta
+            // 
+            this.txtPrecioVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtPrecioVenta.Location = new System.Drawing.Point(537, 81);
+            this.txtPrecioVenta.Name = "txtPrecioVenta";
+            this.txtPrecioVenta.Size = new System.Drawing.Size(85, 20);
+            this.txtPrecioVenta.TabIndex = 7;
+            this.txtPrecioVenta.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecioVenta_KeyPress);
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(537, 53);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(85, 13);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "PRECIO";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(628, 53);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(226, 13);
+            this.label5.TabIndex = 8;
+            this.label5.Text = "CLIENTE";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // cmbClienteVenta
+            // 
+            this.cmbClienteVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbClienteVenta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbClienteVenta.FormattingEnabled = true;
+            this.cmbClienteVenta.Location = new System.Drawing.Point(628, 80);
+            this.cmbClienteVenta.Name = "cmbClienteVenta";
+            this.cmbClienteVenta.Size = new System.Drawing.Size(226, 21);
+            this.cmbClienteVenta.TabIndex = 9;
+            // 
+            // btnAgregarVenta
+            // 
+            this.btnAgregarVenta.Location = new System.Drawing.Point(860, 76);
+            this.btnAgregarVenta.Name = "btnAgregarVenta";
+            this.btnAgregarVenta.Size = new System.Drawing.Size(75, 23);
+            this.btnAgregarVenta.TabIndex = 10;
+            this.btnAgregarVenta.Text = "Agregar";
+            this.btnAgregarVenta.UseVisualStyleBackColor = true;
+            this.btnAgregarVenta.Click += new System.EventHandler(this.btnAgregarVenta_Click);
+            // 
+            // dataGridViewVentas
+            // 
+            this.dataGridViewVentas.AllowUserToAddRows = false;
+            this.dataGridViewVentas.AllowUserToDeleteRows = false;
+            this.dataGridViewVentas.AllowUserToOrderColumns = true;
+            this.dataGridViewVentas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tableLayoutPanel5.SetColumnSpan(this.dataGridViewVentas, 5);
+            this.dataGridViewVentas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewVentas.Location = new System.Drawing.Point(34, 112);
+            this.dataGridViewVentas.MultiSelect = false;
+            this.dataGridViewVentas.Name = "dataGridViewVentas";
+            this.dataGridViewVentas.ReadOnly = true;
+            this.dataGridViewVentas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewVentas.Size = new System.Drawing.Size(820, 348);
+            this.dataGridViewVentas.TabIndex = 11;
+            // 
+            // btnGuardarVenta
+            // 
+            this.btnGuardarVenta.Location = new System.Drawing.Point(860, 466);
+            this.btnGuardarVenta.Name = "btnGuardarVenta";
+            this.btnGuardarVenta.Size = new System.Drawing.Size(116, 23);
+            this.btnGuardarVenta.TabIndex = 12;
+            this.btnGuardarVenta.Text = "Guardar Venta";
+            this.btnGuardarVenta.UseVisualStyleBackColor = true;
+            this.btnGuardarVenta.Click += new System.EventHandler(this.btnGuardarVenta_Click);
+            // 
+            // btnCancelarVenta
+            // 
+            this.btnCancelarVenta.Location = new System.Drawing.Point(628, 466);
+            this.btnCancelarVenta.Name = "btnCancelarVenta";
+            this.btnCancelarVenta.Size = new System.Drawing.Size(114, 23);
+            this.btnCancelarVenta.TabIndex = 13;
+            this.btnCancelarVenta.Text = "Cancelar Venta";
+            this.btnCancelarVenta.UseVisualStyleBackColor = true;
+            this.btnCancelarVenta.Click += new System.EventHandler(this.btnCancelarVenta_Click);
+            // 
+            // btnQuitarVenta
+            // 
+            this.btnQuitarVenta.Location = new System.Drawing.Point(860, 112);
+            this.btnQuitarVenta.Name = "btnQuitarVenta";
+            this.btnQuitarVenta.Size = new System.Drawing.Size(75, 23);
+            this.btnQuitarVenta.TabIndex = 14;
+            this.btnQuitarVenta.Text = "Quitar";
+            this.btnQuitarVenta.UseVisualStyleBackColor = true;
+            this.btnQuitarVenta.Click += new System.EventHandler(this.btnQuitarVenta_Click);
+            // 
             // tabProveedores
             // 
             this.tabProveedores.Location = new System.Drawing.Point(4, 22);
@@ -343,6 +558,7 @@
             // txtBuscarClientes
             // 
             this.txtBuscarClientes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtBuscarClientes.BackColor = System.Drawing.SystemColors.Window;
             this.txtBuscarClientes.Location = new System.Drawing.Point(37, 32);
             this.txtBuscarClientes.Name = "txtBuscarClientes";
             this.txtBuscarClientes.Size = new System.Drawing.Size(952, 20);
@@ -389,26 +605,13 @@
             this.dataGridViewClientes.TabIndex = 5;
             this.dataGridViewClientes.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewClientes_CellDoubleClick);
             // 
-            // tableLayoutPanel5
-            // 
-            this.tableLayoutPanel5.ColumnCount = 2;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 2;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(1044, 586);
-            this.tableLayoutPanel5.TabIndex = 0;
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1104, 644);
             this.Controls.Add(this.tableLayoutPanel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Main";
             this.Text = "Control Celular";
             this.Load += new System.EventHandler(this.Main_Load);
@@ -423,6 +626,9 @@
             this.tableLayoutPanel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewModelos)).EndInit();
             this.tabVentas.ResumeLayout(false);
+            this.tableLayoutPanel5.ResumeLayout(false);
+            this.tableLayoutPanel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewVentas)).EndInit();
             this.tabClientes.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
@@ -453,6 +659,21 @@
         private System.Windows.Forms.TextBox txtBuscarClientes;
         private System.Windows.Forms.DataGridView dataGridViewClientes;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
+        private System.Windows.Forms.TextBox txtImeiVenta;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtEquipoVenta;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtCostoVenta;
+        private System.Windows.Forms.TextBox txtPrecioVenta;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox cmbClienteVenta;
+        private System.Windows.Forms.Button btnAgregarVenta;
+        private System.Windows.Forms.DataGridView dataGridViewVentas;
+        private System.Windows.Forms.Button btnGuardarVenta;
+        private System.Windows.Forms.Button btnCancelarVenta;
+        private System.Windows.Forms.Button btnQuitarVenta;
     }
 }
 

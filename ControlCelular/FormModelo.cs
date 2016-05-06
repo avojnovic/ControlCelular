@@ -43,6 +43,7 @@ namespace ControlCelular
                 txtProcesador.Text = _modelo.Procesador;
                 CmbSistemaOperativo.SelectedValue = _modelo.SistemaOperativo.Id;
                 CmbMarca.SelectedValue = _modelo.Marca.Id;
+                txtMemoria.Text = _modelo.Memoria;
 
             }
             else
@@ -97,6 +98,7 @@ namespace ControlCelular
                 _modelo.Modelo1 = TxtModelo.Text.ToString();
                 _modelo.Nombre = TxtNombre.Text.ToString();
                 _modelo.Procesador = txtProcesador.Text.ToString();
+                _modelo.Memoria = txtMemoria.Text.ToString();
                 _modelo.Borrado = false;
 
                 if (insert)

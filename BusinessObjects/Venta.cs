@@ -67,5 +67,23 @@ namespace BusinessObjects
             get { return _borrado; }
             set { _borrado = value; }
         }
+
+
+        public string ClienteNombre
+        {
+            get { return _cliente.NombreCompleto; }
+        }
+
+
+        public string TelefonoCompleto
+        {
+            get { return _telefono.ModeloDescripcion; }
+  
+        }
+        public string TelefonoImei
+        {
+            get { return _telefono.Imei; }
+
+        }
     }
 }

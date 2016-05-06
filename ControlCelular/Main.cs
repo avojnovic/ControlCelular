@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using BusinessObjects;
 using DAO;
+using System.Globalization;
 
 namespace ControlCelular
 {
@@ -19,8 +20,8 @@ namespace ControlCelular
         Dictionary<int, Modelo> _modelos = new Dictionary<int, Modelo>();
         Dictionary<int, Proveedor> _proveedores = new Dictionary<int, Proveedor>();
         Dictionary<int, Telefono> _telefonos = new Dictionary<int, Telefono>();
-        Dictionary<int, Cliente> _clientes = new Dictionary<int, Cliente>(); 
-
+        Dictionary<int, Cliente> _clientes = new Dictionary<int, Cliente>();
+        Dictionary<string, Venta> _venta = new Dictionary<string, Venta>();
                             
         public Main()
         {
@@ -29,7 +30,7 @@ namespace ControlCelular
 
         private void Main_Load(object sender, EventArgs e)
         {
-
+            
             _marcas = MarcaDAO.get(Application.StartupPath);
             _sistemasOperativos = SistemaOperativoDAO.get(Application.StartupPath);
             _modelos = ModeloDAO.get(Application.StartupPath, _sistemasOperativos, _marcas);
@@ -59,7 +60,21 @@ namespace ControlCelular
             {
                 refreshClientes(true);
             }
+            if (name == "tabVentas")
+            {
+                refreshVentas(true);
+            }
 
+        }
+
+        private void refreshVentas(bool fromDB)
+        {
+            if (fromDB)
+                _clientes = ClienteDAO.get(Application.StartupPath);
+
+            cmbClienteVenta.DataSource = _clientes.Values.ToList() ;
+            cmbClienteVenta.DisplayMember = "NombreCompleto";
+            cmbClienteVenta.ValueMember = "Id";
         }
 
         private void refreshTelefonos(bool fromDB)
@@ -79,7 +94,7 @@ namespace ControlCelular
             dataGridViewTelefonos.Columns["Modelo"].Visible = false;
             dataGridViewTelefonos.Columns["ProveedorNombre"].HeaderText = "Nombre Proveedor";
             dataGridViewTelefonos.Columns["ModeloDescripcion"].HeaderText = "Modelo";
-            dataGridViewTelefonos.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.ColumnHeader);
+            dataGridViewTelefonos.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
 
 
@@ -102,7 +117,7 @@ namespace ControlCelular
             dataGridViewModelos.Columns["MarcaNombre"].HeaderText = "Marca";
             dataGridViewModelos.Columns["Borrado"].Visible = false;
             dataGridViewModelos.Columns["ModeloDescripcion"].Visible = false;
-            dataGridViewModelos.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.ColumnHeader);
+            dataGridViewModelos.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
 
 
@@ -123,7 +138,7 @@ namespace ControlCelular
             dataGridViewClientes.Columns["Borrado"].Visible = false;
             dataGridViewClientes.Columns["NombreCompleto"].Visible = false;
 
-            dataGridViewClientes.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.ColumnHeader);
+            dataGridViewClientes.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
 
         private void txtBuscarTefonos_TextChanged(object sender, EventArgs e)
@@ -261,7 +276,213 @@ namespace ControlCelular
             refreshClientes(true);
         }
 
-       
+        private void txtImeiVenta_TextChanged(object sender, EventArgs e)
+        {
+            if (txtImeiVenta.Text.Length == 15)
+            {
+                Telefono t = validarTelefono(txtImeiVenta.Text.Trim());
+                if (t!=null)
+                {
+                    txtImeiVenta.BackColor = Color.LightGreen;
+                    txtCostoVenta.Text = t.Costo.ToString();
+                    txtEquipoVenta.Text = t.ModeloDescripcion;
+                }
+                else
+                {
+                    txtImeiVenta.BackColor = Color.Red;
+                    txtCostoVenta.Text = "";
+                    txtEquipoVenta.Text = "";
+                }
+            }
+            else
+            {
+                txtImeiVenta.BackColor = Color.White;
+                txtCostoVenta.Text = "";
+                txtEquipoVenta.Text = "";
+            }
+        }
+
+        private void txtImeiVenta_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            if (txtImeiVenta.Text.Length >= 15 && (e.KeyChar != (char)Keys.Back))
+            {
+                e.Handled = true;
+                return;
+            }
+        }
+
+        private void txtPrecioVenta_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back) && (e.KeyChar != Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)))
+            {
+                e.Handled = true;
+                return;
+            }
+            else
+            {
+                txtPrecioVenta.BackColor = Color.White;
+            }
+        }
+
+
+        private Telefono validarTelefono(string imei)
+        { 
+     
+                 var res = (from o in _telefonos.Values.ToList()
+                           where o.Imei==imei
+                           select o);
+
+                 if (res.ToList().Count() == 1)
+                     return (Telefono)res.ToList()[0];
+                 else
+                     return null;
+
+        }
+
+        private void btnAgregarVenta_Click(object sender, EventArgs e)
+        {
+            bool ok = true;
+            if (txtImeiVenta.Text.Length == 15)
+            {
+                Telefono t = validarTelefono(txtImeiVenta.Text.Trim());
+                if (t == null)
+                {
+                    ok = false;
+                    txtImeiVenta.BackColor = Color.Red;
+                }
+                if (txtPrecioVenta.Text.Length == 0)
+                {
+                    ok = false;
+                    txtPrecioVenta.BackColor = Color.Red;
+                }
+                if (cmbClienteVenta.SelectedItem == null)
+                {
+                    ok = false;
+                }
+
+                
+
+              
+
+                if (ok)
+                {
+
+                    if (_venta.ContainsKey(t.Imei))
+                        ok = false;
+
+                    if (ok)
+                    {
+
+                        Venta _v = new Venta();
+                        _v.Cliente = (Cliente)cmbClienteVenta.SelectedItem;
+                        _v.Fecha = DateTime.Today;
+                        _v.Monto = decimal.Parse(txtPrecioVenta.Text.ToString());
+                        _v.Telefono = t;
+
+                        _venta.Add(_v.TelefonoImei,_v);
+                        refreshGrillaVenta(_venta.Values.ToList());
+                        txtPrecioVenta.Text = "";
+                        txtImeiVenta.Text = "";
+                        txtEquipoVenta.Text = "";
+                        txtCostoVenta.Text = "";
+                    }
+                    else
+                    {
+                        MessageBox.Show("Imei ya ingresado");
+                    }
+                }
+
+            }
+            else
+            { 
+            
+            }
+
+        }
+
+        private void refreshGrillaVenta(List<Venta> _venta)
+        {
+            dataGridViewVentas.DataSource = _venta;
+
+            dataGridViewVentas.Columns["Borrado"].Visible = false;
+            dataGridViewVentas.Columns["Id"].Visible = false;
+            dataGridViewVentas.Columns["Cobrado"].Visible = false;
+            dataGridViewVentas.Columns["FechaCobro"].Visible = false;
+            dataGridViewVentas.Columns["Cliente"].Visible = false;
+            dataGridViewVentas.Columns["Telefono"].Visible = false;
+            dataGridViewVentas.Columns["ClienteNombre"].HeaderText = "Cliente";
+            dataGridViewVentas.Columns["TelefonoCompleto"].HeaderText = "Modelo Telefono";
+            dataGridViewVentas.Columns["TelefonoImei"].HeaderText = "Imei";
+            dataGridViewVentas.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+
+        }
+
+        private void btnQuitarVenta_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewVentas.CurrentRow != null)
+            {
+                Venta currentObject = (Venta)dataGridViewVentas.CurrentRow.DataBoundItem;
+
+                _venta.Remove(currentObject.TelefonoImei);
+                refreshGrillaVenta(_venta.Values.ToList());
+            }
+
+        }
+
+        private void btnGuardarVenta_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("¿Esta seguro que desea Guardar la venta?", "Guardar", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+
+                foreach (Venta x in _venta.Values.ToList())
+                {
+                    VentaDAO.insert(Application.StartupPath, x);
+                
+                }
+
+
+                _venta = null;
+                dataGridViewVentas.DataSource = null;
+                txtCostoVenta.Text = "";
+                txtEquipoVenta.Text = "";
+                txtPrecioVenta.Text = "";
+                txtImeiVenta.Text = "";
+
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+
+            }
+        }
+
+        private void btnCancelarVenta_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("¿Esta seguro que desea cancelar la venta?", "Cancelar", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                _venta = null;
+                dataGridViewVentas.DataSource = null;
+                txtCostoVenta.Text = "";
+                txtEquipoVenta.Text = "";
+                txtPrecioVenta.Text = "";
+                txtImeiVenta.Text = "";
+               
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+
+            }
+
+        }
+
+
 
    
 
