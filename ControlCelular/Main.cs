@@ -121,6 +121,7 @@ namespace ControlCelular
             dataGridViewClientes.DataSource = (from o in list where o.Borrado == false select o).ToList();
 
             dataGridViewClientes.Columns["Borrado"].Visible = false;
+            dataGridViewClientes.Columns["NombreCompleto"].Visible = false;
 
             dataGridViewClientes.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.ColumnHeader);
         }

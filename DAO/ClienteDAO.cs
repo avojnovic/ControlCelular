@@ -47,7 +47,7 @@ namespace DAO
 
         private static void addParameters(Cliente x, OleDbCommand cmd, bool id)
         {
-            cmd.Parameters.Add("@Nombre", OleDbType.Integer, 255).Value = x.Nombre;
+            cmd.Parameters.Add("@Nombre", OleDbType.VarChar, 255).Value = x.Nombre;
             cmd.Parameters.Add("@Apellido", OleDbType.VarChar, 255).Value = x.Apellido;
             cmd.Parameters.Add("@Descripcion", OleDbType.VarChar, 255).Value = x.Descripcion;
             cmd.Parameters.Add("@Borrado", OleDbType.Boolean, 255).Value = x.Borrado;

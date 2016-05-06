@@ -82,7 +82,7 @@ namespace DAO
             cmd.Parameters.Add("@Modelo", OleDbType.Integer, 255).Value = x.Modelo.Id;
             cmd.Parameters.Add("@Proveedor", OleDbType.Integer, 255).Value = x.Proveedor.Id;
             cmd.Parameters.Add("@Borrado", OleDbType.Boolean, 255).Value = x.Borrado;
-            cmd.Parameters.Add("@Costo", OleDbType.Decimal, 255).Value = x.Costo;
+            cmd.Parameters.Add("@Costo", OleDbType.Currency, 255).Value = x.Costo;
 
             if (id)
             {

@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using BusinessObjects;
 using DAO;
+using System.Globalization;
 
 namespace ControlCelular
 {
@@ -39,6 +40,7 @@ namespace ControlCelular
                 TxtId.Text = _telenofo.Id.ToString();
                 TxtColor.Text = _telenofo.Color;
                 TxtImei.Text = _telenofo.Imei.ToString();
+                txtCosto.Text = _telenofo.Costo.ToString();
                 List<Modelo> l = new List<Modelo>();
                 l.Add(_telenofo.Modelo);
                 setGridViewModelos(l);
@@ -75,7 +77,7 @@ namespace ControlCelular
             {
                 txtCosto.BackColor = Color.White;
             }
-            if (TxtImei.Text.Trim() == String.Empty)
+            if (TxtImei.Text.Trim().Length !=15)
             {
                 TxtImei.BackColor = Color.LightCyan;
                 ok = false;
@@ -114,6 +116,9 @@ namespace ControlCelular
                 _telenofo.Modelo = (Modelo)dataGridViewModelos.CurrentRow.DataBoundItem;
                 _telenofo.Proveedor = (Proveedor)CmbProveedor.SelectedItem;
                 _telenofo.Color = TxtColor.Text.ToString();
+                _telenofo.Costo = decimal.Parse(txtCosto.Text.ToString());
+
+
                 _telenofo.Borrado = false;
 
                 if (insert)
@@ -200,11 +205,92 @@ namespace ControlCelular
 
         private void txtCosto_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+
+   
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back) && (e.KeyChar != Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)))
             {
                 e.Handled = true;
                 return;
             }
         }
+
+        private void TxtImei_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            if (TxtImei.Text.Length >= 15 && (e.KeyChar != (char)Keys.Back))
+            {
+                e.Handled = true;
+                return;
+            }
+            
+        }
+
+        static bool IsValidIMEI(string imei)
+        {
+            int[] n = new int[imei.Length];
+            for (int i = 0; i < imei.Length; i++)
+            {
+                n[i] = int.Parse(imei[i].ToString());
+            }
+
+            for (int i = 0; i < imei.Length - 1; i++)
+            {
+                if (i % 2 == 1)
+                {
+                    n[i] = n[i] * 2;
+                }
+            }
+
+            for (int i = 0; i < imei.Length - 1; i++)
+            {
+                if (i % 2 == 1)
+                {
+                    if (n[i].ToString().Length > 1)
+                        n[i] = int.Parse(n[i].ToString()[0].ToString()) + int.Parse(n[i].ToString()[1].ToString());
+                }
+            }
+
+            int total = 0;
+            for (int i = 0; i < imei.Length - 1; i++)
+            {
+                total += n[i];
+            }
+
+            int mod = total % 10;
+
+            if (mod > 0)
+            {
+                mod = 10 - mod;
+            }
+
+            return (n[imei.Length - 1] == mod);
+        }
+
+        private void TxtImei_TextChanged(object sender, EventArgs e)
+        {
+            if (TxtImei.Text.Length == 15)
+            {
+                if (IsValidIMEI(TxtImei.Text.Trim()))
+                {
+                    TxtImei.BackColor = Color.LightGreen;
+                }
+                else
+                {
+                    TxtImei.BackColor = Color.Red;
+                }
+            }
+            else
+            {
+                TxtImei.BackColor = Color.White;
+            }
+        }
+
+       
+
     }
 }

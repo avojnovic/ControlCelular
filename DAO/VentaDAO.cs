@@ -36,6 +36,8 @@ namespace DAO
                 x.Monto = reader.GetDecimal(3);
                 x.Cliente = _clientes[reader.GetInt32(4)];
                 x.Borrado = reader.GetBoolean(5);
+                x.Cobrado = reader.GetBoolean(6);
+                x.FechaCobro = reader.GetDateTime(7);
               
                 _list.Add(x.Id, x);
             }
@@ -52,8 +54,8 @@ namespace DAO
             OleDbConnection connection = new OleDbConnection(strconnection);
             OleDbCommand cmd = new OleDbCommand();
 
-            cmd.CommandText = @"INSERT INTO Venta (Fecha,Telefono,Monto,Cliente,Borrado) 
-                                VALUES(@Fecha,@Telefono,@Monto,@Cliente,@Borrado)";
+            cmd.CommandText = @"INSERT INTO Venta (Fecha,Telefono,Monto,Cliente,Borrado,Cobrado,FechaCobro) 
+                                VALUES(@Fecha,@Telefono,@Monto,@Cliente,@Borrado,@Cobrado,@FechaCobro)";
 
             cmd.CommandType = CommandType.Text;
             addParameters(x, cmd, false);
@@ -80,9 +82,12 @@ namespace DAO
         {
             cmd.Parameters.Add("@Fecha", OleDbType.Date, 255).Value = x.Fecha;
             cmd.Parameters.Add("@Telefono", OleDbType.Integer, 255).Value = x.Telefono.Id;
-            cmd.Parameters.Add("@Monto", OleDbType.Decimal, 255).Value = x.Monto;
+            cmd.Parameters.Add("@Monto", OleDbType.Currency, 255).Value = x.Monto;
             cmd.Parameters.Add("@Cliente", OleDbType.Integer, 255).Value = x.Cliente.Id;
             cmd.Parameters.Add("@Borrado", OleDbType.Boolean, 255).Value = x.Borrado;
+            cmd.Parameters.Add("@Cobrado", OleDbType.Boolean, 255).Value = x.Cobrado;
+            cmd.Parameters.Add("@FechaCobro", OleDbType.Date, 255).Value = x.FechaCobro;
+
 
 
             if (id)
@@ -98,7 +103,7 @@ namespace DAO
             OleDbConnection connection = new OleDbConnection(strconnection);
             OleDbCommand cmd = new OleDbCommand();
 
-            cmd.CommandText = @"UPDATE Venta SET Fecha=@Fecha,Telefono=@Telefono,Monto=@Monto,Cliente=@Cliente,Borrado=@Borrado WHERE ID=@ID";
+            cmd.CommandText = @"UPDATE Venta SET Fecha=@Fecha,Telefono=@Telefono,Monto=@Monto,Cliente=@Cliente,Borrado=@Borrado,Cobrado=@Cobrado,FechaCobro=@FechaCobro WHERE ID=@ID";
             cmd.CommandType = CommandType.Text;
             addParameters(x, cmd, true);
             cmd.Connection = connection;

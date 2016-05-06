@@ -44,6 +44,22 @@ namespace BusinessObjects
             set { _cliente = value; }
         }
 
+        private bool _cobrado;
+
+        public bool Cobrado
+        {
+            get { return _cobrado; }
+            set { _cobrado = value; }
+        }
+
+        private DateTime _fechaCobro;
+
+        public DateTime FechaCobro
+        {
+            get { return _fechaCobro; }
+            set { _fechaCobro = value; }
+        }
+
         private bool _borrado;
 
         public bool Borrado
