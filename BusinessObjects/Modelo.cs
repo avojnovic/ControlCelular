@@ -81,6 +81,13 @@ namespace BusinessObjects
             set { _borrado = value; }
         }
 
+        private string _memoria;
+
+        public string Memoria
+        {
+            get { return _memoria; }
+            set { _memoria = value; }
+        }
 
         public string ModeloDescripcion
         {

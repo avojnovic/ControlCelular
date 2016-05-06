@@ -33,12 +33,29 @@ namespace DAO
 
                 x.Id = reader.GetInt32(0);
                 x.Marca = _marcas[reader.GetInt32(1)];
-                x.Modelo1 = reader.GetString(2);
+                if (!reader.IsDBNull(2))
+                    x.Modelo1 = reader.GetString(2);
+                else
+                    x.Modelo1 = "";
+
                 x.Nombre = reader.GetString(3);
-                x.Procesador = reader.GetString(4);
+                if (!reader.IsDBNull(4))
+                    x.Procesador = reader.GetString(4);
+                else
+                    x.Procesador = "";
+               
                 x.SistemaOperativo =_sisOp[reader.GetInt32(5)];
-                x.Descripcion = reader.GetString(6);
+                
+                if (!reader.IsDBNull(6))
+                    x.Descripcion = reader.GetString(6);
+                else
+                    x.Descripcion = "";
                 x.Borrado = reader.GetBoolean(7);
+
+                if (!reader.IsDBNull(8))
+                    x.Memoria = reader.GetString(8);
+                else
+                    x.Memoria = "";
                 _dic.Add(x.Id, x);
             }
             reader.Close();
@@ -57,6 +74,7 @@ namespace DAO
             cmd.Parameters.Add("@SistemaOperativo", OleDbType.Integer, 255).Value = x.SistemaOperativo.Id;
             cmd.Parameters.Add("@Descripcion", OleDbType.VarChar, 255).Value = x.Descripcion;
             cmd.Parameters.Add("@Borrado", OleDbType.Boolean, 255).Value = x.Borrado;
+            cmd.Parameters.Add("@Memoria", OleDbType.VarChar, 255).Value = x.Memoria;
 
             if (id)
             {
@@ -71,8 +89,8 @@ namespace DAO
             OleDbConnection connection = new OleDbConnection(strconnection);
             OleDbCommand cmd = new OleDbCommand();
 
-            cmd.CommandText = @"INSERT INTO Modelo (Marca,Modelo,Nombre,Procesador,SistemaOperativo,Descripcion,Borrado) 
-                                VALUES(@Marca,@Modelo,@Nombre,@Procesador,@SistemaOperativo,@Descripcion,@Borrado)";
+            cmd.CommandText = @"INSERT INTO Modelo (Marca,Modelo,Nombre,Procesador,SistemaOperativo,Descripcion,Borrado,Memoria) 
+                                VALUES(@Marca,@Modelo,@Nombre,@Procesador,@SistemaOperativo,@Descripcion,@Borrado,@Memoria)";
 
 
             cmd.CommandType = CommandType.Text;
@@ -108,7 +126,7 @@ namespace DAO
             OleDbConnection connection = new OleDbConnection(strconnection);
             OleDbCommand cmd = new OleDbCommand();
 
-            cmd.CommandText = @"UPDATE Modelo SET Marca=@Marca,Modelo=@Modelo,Nombre=@Nombre,Procesador=@Procesador,SistemaOperativo=@SistemaOperativo,Descripcion=@Descripcion, Borrado=@Borrado WHERE ID=@ID";
+            cmd.CommandText = @"UPDATE Modelo SET Marca=@Marca,Modelo=@Modelo,Nombre=@Nombre,Procesador=@Procesador,SistemaOperativo=@SistemaOperativo,Descripcion=@Descripcion, Borrado=@Borrado,Memoria=@Memoria WHERE ID=@ID";
 
             cmd.CommandType = CommandType.Text;
 

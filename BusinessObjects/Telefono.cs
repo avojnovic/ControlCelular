@@ -71,7 +71,7 @@ namespace BusinessObjects
 
         public string ModeloDescripcion
         {
-            get { return Modelo.Modelo1+" - "+Modelo.Nombre; }
+            get { return Modelo.MarcaNombre + " - "+ Modelo.Nombre+" - "+Modelo.Modelo1; }
         }
 
     }
