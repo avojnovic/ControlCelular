@@ -22,7 +22,8 @@ namespace ControlCelular
         Dictionary<int, Telefono> _telefonos = new Dictionary<int, Telefono>();
         Dictionary<int, Cliente> _clientes = new Dictionary<int, Cliente>();
         Dictionary<string, Venta> _venta = new Dictionary<string, Venta>();
-                            
+        Dictionary<int, Venta> _historialVentas = new Dictionary<int, Venta>();
+
         public Main()
         {
             InitializeComponent();
@@ -30,22 +31,22 @@ namespace ControlCelular
 
         private void Main_Load(object sender, EventArgs e)
         {
-            
+
             _marcas = MarcaDAO.get(Application.StartupPath);
             _sistemasOperativos = SistemaOperativoDAO.get(Application.StartupPath);
             _modelos = ModeloDAO.get(Application.StartupPath, _sistemasOperativos, _marcas);
             _proveedores = ProveedorDAO.get(Application.StartupPath);
+            _clientes = ClienteDAO.get(Application.StartupPath);
+            refreshTelefonos(true);
 
-            refreshTelefonos(true); 
-           
-            
+
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
             string name = tabControl1.SelectedTab.Name;
-           
+
             //if (name == "tabTelefonos" && dataGridViewTelefonos.DataSource == null)
             //{
             //    refreshTelefonos(false);
@@ -64,39 +65,71 @@ namespace ControlCelular
             {
                 refreshVentas(true);
             }
+            if (name == "tabHistorialVentas")
+            {
+                refreshHistorialVentas(true);
+            }
 
         }
+
+        private void refreshHistorialVentas(bool fromDB)
+        {
+            if (fromDB)
+                _historialVentas = VentaDAO.get(Application.StartupPath, _telefonos, _clientes);
+
+            setGridViewHistorialVentas(_historialVentas.Values.ToList());
+        }
+
+
 
         private void refreshVentas(bool fromDB)
         {
             if (fromDB)
                 _clientes = ClienteDAO.get(Application.StartupPath);
 
-            cmbClienteVenta.DataSource = _clientes.Values.ToList() ;
+            cmbClienteVenta.DataSource = _clientes.Values.ToList();
             cmbClienteVenta.DisplayMember = "NombreCompleto";
             cmbClienteVenta.ValueMember = "Id";
         }
 
         private void refreshTelefonos(bool fromDB)
         {
-            if(fromDB)
+            if (fromDB)
                 _telefonos = TelefonoDAO.get(Application.StartupPath, _modelos, _proveedores);
+
 
             setGridViewTelefonos(_telefonos.Values.ToList());
         }
 
         private void setGridViewTelefonos(List<Telefono> list)
         {
-    
+
             dataGridViewTelefonos.DataSource = (from o in list where o.Borrado == false select o).ToList();
             dataGridViewTelefonos.Columns["Proveedor"].Visible = false;
             dataGridViewTelefonos.Columns["Borrado"].Visible = false;
             dataGridViewTelefonos.Columns["Modelo"].Visible = false;
+            dataGridViewTelefonos.Columns["Venta"].Visible = false;
+            dataGridViewTelefonos.Columns["VendidoBool"].Visible = false;
             dataGridViewTelefonos.Columns["ProveedorNombre"].HeaderText = "Nombre Proveedor";
             dataGridViewTelefonos.Columns["ModeloDescripcion"].HeaderText = "Modelo";
             dataGridViewTelefonos.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
 
+        private void setGridViewHistorialVentas(List<Venta> list)
+        {
+            dataGridViewHistorialVentas.DataSource = (from o in list where o.Borrado == false select o).ToList();
+
+            dataGridViewHistorialVentas.Columns["Borrado"].Visible = false;
+            dataGridViewHistorialVentas.Columns["Telefono"].Visible = false;
+            dataGridViewHistorialVentas.Columns["Cliente"].Visible = false;
+            dataGridViewHistorialVentas.Columns["Cobrado"].Visible = false;
+            dataGridViewHistorialVentas.Columns["FechaCobro"].Visible = false;
+
+            dataGridViewHistorialVentas.Columns["ClienteNombre"].HeaderText = "Cliente";
+            dataGridViewHistorialVentas.Columns["TelefonoCompleto"].HeaderText = "Telefono";
+            dataGridViewHistorialVentas.Columns["TelefonoImei"].HeaderText = "IMEI";
+            dataGridViewHistorialVentas.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+        }
 
         private void refreshModelos(bool fromDB)
         {
@@ -146,18 +179,18 @@ namespace ControlCelular
             if (txtBuscarTefonos.Text.Length > 0)
             {
                 var res = (from o in _telefonos.Values.ToList()
-                           where o.Borrado==false && (o.Imei.Trim().ToUpper().Contains(txtBuscarTefonos.Text.Trim().ToUpper()) || o.Color.Trim().ToUpper().Contains(txtBuscarTefonos.Text.Trim().ToUpper()) || o.ModeloDescripcion.Trim().ToUpper().Contains(txtBuscarTefonos.Text.Trim().ToUpper()) || o.ProveedorNombre.Trim().ToUpper().Contains(txtBuscarTefonos.Text.Trim().ToUpper()))
+                           where o.Borrado == false && (o.Imei.Trim().ToUpper().Contains(txtBuscarTefonos.Text.Trim().ToUpper()) || o.Color.Trim().ToUpper().Contains(txtBuscarTefonos.Text.Trim().ToUpper()) || o.ModeloDescripcion.Trim().ToUpper().Contains(txtBuscarTefonos.Text.Trim().ToUpper()) || o.ProveedorNombre.Trim().ToUpper().Contains(txtBuscarTefonos.Text.Trim().ToUpper()))
                            select o);
 
 
                 setGridViewTelefonos((List<Telefono>)res.ToList());
-              
+
             }
-            else if (txtBuscarTefonos.Text.Length==0)
+            else if (txtBuscarTefonos.Text.Length == 0)
             {
 
                 setGridViewTelefonos(_telefonos.Values.ToList());
-                
+
             }
 
         }
@@ -187,6 +220,7 @@ namespace ControlCelular
         private void BtnNuevoTelefono_Click(object sender, EventArgs e)
         {
             FormTelefono _formTelefono = new FormTelefono();
+            _formTelefono._telefonos = _telefonos;
             _formTelefono._modelos = _modelos;
             _formTelefono._proveedores = _proveedores;
             _formTelefono.ShowDialog();
@@ -197,27 +231,28 @@ namespace ControlCelular
 
         private void dataGridViewTelefonos_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            
+
             Telefono currentObject = (Telefono)dataGridViewTelefonos.CurrentRow.DataBoundItem;
 
             FormTelefono _formTelefono = new FormTelefono();
+            _formTelefono._telefonos = _telefonos;
             _formTelefono._modelos = _modelos;
             _formTelefono._proveedores = _proveedores;
-            _formTelefono._telenofo = currentObject;
+            _formTelefono._telefono = currentObject;
             _formTelefono.ShowDialog();
 
             refreshTelefonos(true);
 
         }
 
-       
+
 
         private void BtnNuevoModelo_Click(object sender, EventArgs e)
         {
             FormModelo _form = new FormModelo();
-            
+
             _form._marcas = _marcas;
-            _form._sistemasOperativos=_sistemasOperativos;
+            _form._sistemasOperativos = _sistemasOperativos;
             _form.ShowDialog();
             refreshModelos(true);
         }
@@ -229,7 +264,7 @@ namespace ControlCelular
 
             FormModelo _form = new FormModelo();
             _form._marcas = _marcas;
-            _form._sistemasOperativos= _sistemasOperativos;
+            _form._sistemasOperativos = _sistemasOperativos;
             _form._modelo = currentObject;
             _form.ShowDialog();
 
@@ -250,7 +285,7 @@ namespace ControlCelular
             if (txtBuscarClientes.Text.Length > 0)
             {
                 var res = (from o in _clientes.Values.ToList()
-                           where o.Nombre.Trim().ToUpper().Contains(txtBuscarClientes.Text.Trim().ToUpper()) || o.Apellido.Trim().ToUpper().Contains(txtBuscarClientes.Text.Trim().ToUpper()) || o.Descripcion.Trim().ToUpper().Contains(txtBuscarClientes.Text.Trim().ToUpper()) || o.NombreCompleto.Trim().ToUpper().Contains(txtBuscarClientes.Text.Trim().ToUpper()) 
+                           where o.Nombre.Trim().ToUpper().Contains(txtBuscarClientes.Text.Trim().ToUpper()) || o.Apellido.Trim().ToUpper().Contains(txtBuscarClientes.Text.Trim().ToUpper()) || o.Descripcion.Trim().ToUpper().Contains(txtBuscarClientes.Text.Trim().ToUpper()) || o.NombreCompleto.Trim().ToUpper().Contains(txtBuscarClientes.Text.Trim().ToUpper())
                            select o);
 
                 setGridViewClientes((List<Cliente>)res.ToList());
@@ -281,7 +316,7 @@ namespace ControlCelular
             if (txtImeiVenta.Text.Length == 15)
             {
                 Telefono t = validarTelefono(txtImeiVenta.Text.Trim());
-                if (t!=null)
+                if (t != null)
                 {
                     txtImeiVenta.BackColor = Color.LightGreen;
                     txtCostoVenta.Text = t.Costo.ToString();
@@ -304,6 +339,7 @@ namespace ControlCelular
 
         private void txtImeiVenta_KeyPress(object sender, KeyPressEventArgs e)
         {
+
             if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
             {
                 e.Handled = true;
@@ -326,22 +362,32 @@ namespace ControlCelular
             }
             else
             {
-                txtPrecioVenta.BackColor = Color.White;
+                if (e.KeyChar == Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator) && txtPrecioVenta.Text.Contains(Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)))
+                {
+                    e.Handled = true;
+                    return;
+                }
+                else
+                {
+                    txtPrecioVenta.BackColor = Color.White;
+                }
+
+
             }
         }
 
 
         private Telefono validarTelefono(string imei)
-        { 
-     
-                 var res = (from o in _telefonos.Values.ToList()
-                           where o.Imei==imei
-                           select o);
+        {
 
-                 if (res.ToList().Count() == 1)
-                     return (Telefono)res.ToList()[0];
-                 else
-                     return null;
+            var res = (from o in _telefonos.Values.ToList()
+                       where o.Imei == imei
+                       select o);
+
+            if (res.ToList().Count() == 1)
+                return (Telefono)res.ToList()[0];
+            else
+                return null;
 
         }
 
@@ -356,6 +402,15 @@ namespace ControlCelular
                     ok = false;
                     txtImeiVenta.BackColor = Color.Red;
                 }
+                else
+                {
+                    if (t.VendidoBool)
+                    {
+                        ok = false;
+                        MessageBox.Show("Telefono ya fue vendido");
+                        
+                    }
+                }
                 if (txtPrecioVenta.Text.Length == 0)
                 {
                     ok = false;
@@ -365,13 +420,15 @@ namespace ControlCelular
                 {
                     ok = false;
                 }
-
                 
 
-              
+     
+
+
 
                 if (ok)
                 {
+                  
 
                     if (_venta.ContainsKey(t.Imei))
                         ok = false;
@@ -385,7 +442,7 @@ namespace ControlCelular
                         _v.Monto = decimal.Parse(txtPrecioVenta.Text.ToString());
                         _v.Telefono = t;
 
-                        _venta.Add(_v.TelefonoImei,_v);
+                        _venta.Add(_v.TelefonoImei, _v);
                         refreshGrillaVenta(_venta.Values.ToList());
                         txtPrecioVenta.Text = "";
                         txtImeiVenta.Text = "";
@@ -400,8 +457,8 @@ namespace ControlCelular
 
             }
             else
-            { 
-            
+            {
+
             }
 
         }
@@ -444,7 +501,7 @@ namespace ControlCelular
                 foreach (Venta x in _venta.Values.ToList())
                 {
                     VentaDAO.insert(Application.StartupPath, x);
-                
+
                 }
 
 
@@ -473,7 +530,7 @@ namespace ControlCelular
                 txtEquipoVenta.Text = "";
                 txtPrecioVenta.Text = "";
                 txtImeiVenta.Text = "";
-               
+
             }
             else if (dialogResult == DialogResult.No)
             {
@@ -484,8 +541,8 @@ namespace ControlCelular
 
 
 
-   
 
-     
+
+
     }
 }

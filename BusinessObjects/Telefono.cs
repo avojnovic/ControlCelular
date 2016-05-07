@@ -74,5 +74,34 @@ namespace BusinessObjects
             get { return Modelo.MarcaNombre + " - "+ Modelo.Nombre+" - "+Modelo.Modelo1; }
         }
 
+        private int _venta;
+
+        public int Venta
+        {
+            get { return _venta; }
+            set { _venta = value; }
+        }
+
+        public string Vendido
+        {
+            get {
+                if (_venta == 0)
+                    return "No";
+                else
+                    return "Si";
+                }
+        }
+
+        public bool VendidoBool
+        {
+            get
+            {
+                if (_venta == 0)
+                    return false;
+                else
+                    return true;
+            }
+        }
+
     }
 }

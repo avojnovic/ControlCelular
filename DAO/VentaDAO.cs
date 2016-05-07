@@ -37,7 +37,8 @@ namespace DAO
                 x.Cliente = _clientes[reader.GetInt32(4)];
                 x.Borrado = reader.GetBoolean(5);
                 x.Cobrado = reader.GetBoolean(6);
-                x.FechaCobro = reader.GetDateTime(7);
+                if(!reader.IsDBNull(7))
+                 x.FechaCobro = reader.GetDateTime(7);
               
                 _list.Add(x.Id, x);
             }
@@ -69,6 +70,11 @@ namespace DAO
 
             cmd.CommandText = query2;
             ID = (int)cmd.ExecuteScalar();
+
+
+            x.Telefono.Venta = ID;
+            TelefonoDAO.update(dbPath, x.Telefono);
+
 
             // cmd.Transaction.Commit();
             connection.Dispose();

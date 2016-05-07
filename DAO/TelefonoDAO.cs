@@ -36,6 +36,10 @@ namespace DAO
                 x.Proveedor = _proveedores[reader.GetInt32(4)];
                 x.Borrado = reader.GetBoolean(5);
                 x.Costo = reader.GetDecimal(6);
+                if (!reader.IsDBNull(7))
+                    x.Venta = reader.GetInt32(7);
+                else
+                    x.Venta = 0;
                 _list.Add(x.Id, x);
             }
             reader.Close();
@@ -51,8 +55,8 @@ namespace DAO
             OleDbConnection connection = new OleDbConnection(strconnection);
             OleDbCommand cmd = new OleDbCommand();
 
-            cmd.CommandText = @"INSERT INTO TELEFONO (Imei,Color,Modelo,Proveedor,Borrado,Costo) 
-                                VALUES(@Imei,@Color,@Modelo,@Proveedor,@Borrado,@Costo)";
+            cmd.CommandText = @"INSERT INTO TELEFONO (Imei,Color,Modelo,Proveedor,Borrado,Costo,Venta) 
+                                VALUES(@Imei,@Color,@Modelo,@Proveedor,@Borrado,@Costo,@Venta)";
 
             cmd.CommandType = CommandType.Text;
             addParameters(x, cmd,false);
@@ -83,6 +87,7 @@ namespace DAO
             cmd.Parameters.Add("@Proveedor", OleDbType.Integer, 255).Value = x.Proveedor.Id;
             cmd.Parameters.Add("@Borrado", OleDbType.Boolean, 255).Value = x.Borrado;
             cmd.Parameters.Add("@Costo", OleDbType.Currency, 255).Value = x.Costo;
+            cmd.Parameters.Add("@Venta", OleDbType.Integer, 255).Value = x.Venta;
 
             if (id)
             {
@@ -97,7 +102,7 @@ namespace DAO
             OleDbConnection connection = new OleDbConnection(strconnection);
             OleDbCommand cmd = new OleDbCommand();
 
-            cmd.CommandText = @"UPDATE Telefono SET Imei=@Imei,Color=@Color,Modelo=@Modelo,Proveedor=@Proveedor,Borrado=@Borrado,Costo=@Costo WHERE ID=@ID";
+            cmd.CommandText = @"UPDATE Telefono SET Imei=@Imei,Color=@Color,Modelo=@Modelo,Proveedor=@Proveedor,Borrado=@Borrado,Costo=@Costo,Venta=@Venta WHERE ID=@ID";
             cmd.CommandType = CommandType.Text;
             addParameters(x, cmd, true);
             cmd.Connection = connection;

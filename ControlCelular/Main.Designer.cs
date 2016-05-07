@@ -37,6 +37,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -73,6 +76,10 @@
             this.btnClienteNuevo = new System.Windows.Forms.Button();
             this.txtBuscarClientes = new System.Windows.Forms.TextBox();
             this.dataGridViewClientes = new System.Windows.Forms.DataGridView();
+            this.tabHistorialVentas = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.dataGridViewHistorialVentas = new System.Windows.Forms.DataGridView();
+            this.txtHistorialVentas = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabTelefonos.SuspendLayout();
@@ -87,6 +94,9 @@
             this.tabClientes.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClientes)).BeginInit();
+            this.tabHistorialVentas.SuspendLayout();
+            this.tableLayoutPanel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHistorialVentas)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -109,9 +119,10 @@
             // 
             this.tabControl1.Controls.Add(this.tabTelefonos);
             this.tabControl1.Controls.Add(this.tabModelos);
-            this.tabControl1.Controls.Add(this.tabVentas);
-            this.tabControl1.Controls.Add(this.tabProveedores);
             this.tabControl1.Controls.Add(this.tabClientes);
+            this.tabControl1.Controls.Add(this.tabVentas);
+            this.tabControl1.Controls.Add(this.tabHistorialVentas);
+            this.tabControl1.Controls.Add(this.tabProveedores);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(23, 23);
             this.tabControl1.Name = "tabControl1";
@@ -154,7 +165,9 @@
             // 
             this.dataGridViewTelefonos.AllowUserToAddRows = false;
             this.dataGridViewTelefonos.AllowUserToDeleteRows = false;
+            this.dataGridViewTelefonos.AllowUserToOrderColumns = true;
             this.dataGridViewTelefonos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewTelefonos.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -185,7 +198,8 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewTelefonos.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridViewTelefonos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewTelefonos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.dataGridViewTelefonos.ShowEditingIcon = false;
             this.dataGridViewTelefonos.Size = new System.Drawing.Size(969, 523);
             this.dataGridViewTelefonos.TabIndex = 0;
             this.dataGridViewTelefonos.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTelefonos_CellMouseDoubleClick);
@@ -306,7 +320,7 @@
             this.tabVentas.Padding = new System.Windows.Forms.Padding(3);
             this.tabVentas.Size = new System.Drawing.Size(1050, 592);
             this.tabVentas.TabIndex = 2;
-            this.tabVentas.Text = "Ventas";
+            this.tabVentas.Text = "Venta Nueva";
             this.tabVentas.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel5
@@ -318,7 +332,7 @@
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 102F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 91F));
             this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 232F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 186F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 187F));
             this.tableLayoutPanel5.Controls.Add(this.txtImeiVenta, 1, 2);
             this.tableLayoutPanel5.Controls.Add(this.label1, 1, 1);
             this.tableLayoutPanel5.Controls.Add(this.txtEquipoVenta, 2, 2);
@@ -350,7 +364,7 @@
             // txtImeiVenta
             // 
             this.txtImeiVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtImeiVenta.Location = new System.Drawing.Point(34, 81);
+            this.txtImeiVenta.Location = new System.Drawing.Point(33, 81);
             this.txtImeiVenta.Name = "txtImeiVenta";
             this.txtImeiVenta.Size = new System.Drawing.Size(129, 20);
             this.txtImeiVenta.TabIndex = 1;
@@ -361,7 +375,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(34, 53);
+            this.label1.Location = new System.Drawing.Point(33, 53);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(129, 13);
             this.label1.TabIndex = 0;
@@ -371,7 +385,7 @@
             // txtEquipoVenta
             // 
             this.txtEquipoVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtEquipoVenta.Location = new System.Drawing.Point(169, 81);
+            this.txtEquipoVenta.Location = new System.Drawing.Point(168, 81);
             this.txtEquipoVenta.Name = "txtEquipoVenta";
             this.txtEquipoVenta.ReadOnly = true;
             this.txtEquipoVenta.Size = new System.Drawing.Size(260, 20);
@@ -381,7 +395,7 @@
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(169, 53);
+            this.label2.Location = new System.Drawing.Point(168, 53);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(260, 13);
             this.label2.TabIndex = 3;
@@ -392,7 +406,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(435, 53);
+            this.label3.Location = new System.Drawing.Point(434, 53);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(96, 13);
             this.label3.TabIndex = 4;
@@ -402,7 +416,7 @@
             // txtCostoVenta
             // 
             this.txtCostoVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtCostoVenta.Location = new System.Drawing.Point(435, 81);
+            this.txtCostoVenta.Location = new System.Drawing.Point(434, 81);
             this.txtCostoVenta.Name = "txtCostoVenta";
             this.txtCostoVenta.ReadOnly = true;
             this.txtCostoVenta.Size = new System.Drawing.Size(96, 20);
@@ -411,7 +425,7 @@
             // txtPrecioVenta
             // 
             this.txtPrecioVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPrecioVenta.Location = new System.Drawing.Point(537, 81);
+            this.txtPrecioVenta.Location = new System.Drawing.Point(536, 81);
             this.txtPrecioVenta.Name = "txtPrecioVenta";
             this.txtPrecioVenta.Size = new System.Drawing.Size(85, 20);
             this.txtPrecioVenta.TabIndex = 7;
@@ -421,7 +435,7 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(537, 53);
+            this.label4.Location = new System.Drawing.Point(536, 53);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(85, 13);
             this.label4.TabIndex = 6;
@@ -432,7 +446,7 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(628, 53);
+            this.label5.Location = new System.Drawing.Point(627, 53);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(226, 13);
             this.label5.TabIndex = 8;
@@ -444,14 +458,14 @@
             this.cmbClienteVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbClienteVenta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbClienteVenta.FormattingEnabled = true;
-            this.cmbClienteVenta.Location = new System.Drawing.Point(628, 80);
+            this.cmbClienteVenta.Location = new System.Drawing.Point(627, 80);
             this.cmbClienteVenta.Name = "cmbClienteVenta";
             this.cmbClienteVenta.Size = new System.Drawing.Size(226, 21);
             this.cmbClienteVenta.TabIndex = 9;
             // 
             // btnAgregarVenta
             // 
-            this.btnAgregarVenta.Location = new System.Drawing.Point(860, 76);
+            this.btnAgregarVenta.Location = new System.Drawing.Point(859, 76);
             this.btnAgregarVenta.Name = "btnAgregarVenta";
             this.btnAgregarVenta.Size = new System.Drawing.Size(75, 23);
             this.btnAgregarVenta.TabIndex = 10;
@@ -468,7 +482,7 @@
             this.dataGridViewVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanel5.SetColumnSpan(this.dataGridViewVentas, 5);
             this.dataGridViewVentas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewVentas.Location = new System.Drawing.Point(34, 112);
+            this.dataGridViewVentas.Location = new System.Drawing.Point(33, 112);
             this.dataGridViewVentas.MultiSelect = false;
             this.dataGridViewVentas.Name = "dataGridViewVentas";
             this.dataGridViewVentas.ReadOnly = true;
@@ -478,7 +492,7 @@
             // 
             // btnGuardarVenta
             // 
-            this.btnGuardarVenta.Location = new System.Drawing.Point(860, 466);
+            this.btnGuardarVenta.Location = new System.Drawing.Point(859, 466);
             this.btnGuardarVenta.Name = "btnGuardarVenta";
             this.btnGuardarVenta.Size = new System.Drawing.Size(116, 23);
             this.btnGuardarVenta.TabIndex = 12;
@@ -488,7 +502,7 @@
             // 
             // btnCancelarVenta
             // 
-            this.btnCancelarVenta.Location = new System.Drawing.Point(628, 466);
+            this.btnCancelarVenta.Location = new System.Drawing.Point(627, 466);
             this.btnCancelarVenta.Name = "btnCancelarVenta";
             this.btnCancelarVenta.Size = new System.Drawing.Size(114, 23);
             this.btnCancelarVenta.TabIndex = 13;
@@ -498,7 +512,7 @@
             // 
             // btnQuitarVenta
             // 
-            this.btnQuitarVenta.Location = new System.Drawing.Point(860, 112);
+            this.btnQuitarVenta.Location = new System.Drawing.Point(859, 112);
             this.btnQuitarVenta.Name = "btnQuitarVenta";
             this.btnQuitarVenta.Size = new System.Drawing.Size(75, 23);
             this.btnQuitarVenta.TabIndex = 14;
@@ -605,6 +619,84 @@
             this.dataGridViewClientes.TabIndex = 5;
             this.dataGridViewClientes.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewClientes_CellDoubleClick);
             // 
+            // tabHistorialVentas
+            // 
+            this.tabHistorialVentas.Controls.Add(this.tableLayoutPanel6);
+            this.tabHistorialVentas.Location = new System.Drawing.Point(4, 22);
+            this.tabHistorialVentas.Name = "tabHistorialVentas";
+            this.tabHistorialVentas.Size = new System.Drawing.Size(1050, 592);
+            this.tabHistorialVentas.TabIndex = 5;
+            this.tabHistorialVentas.Text = "Historial Ventas";
+            this.tabHistorialVentas.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel6
+            // 
+            this.tableLayoutPanel6.ColumnCount = 3;
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.tableLayoutPanel6.Controls.Add(this.dataGridViewHistorialVentas, 1, 2);
+            this.tableLayoutPanel6.Controls.Add(this.txtHistorialVentas, 1, 1);
+            this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
+            this.tableLayoutPanel6.RowCount = 3;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(1050, 592);
+            this.tableLayoutPanel6.TabIndex = 1;
+            // 
+            // dataGridViewHistorialVentas
+            // 
+            this.dataGridViewHistorialVentas.AllowUserToAddRows = false;
+            this.dataGridViewHistorialVentas.AllowUserToDeleteRows = false;
+            this.dataGridViewHistorialVentas.AllowUserToOrderColumns = true;
+            this.dataGridViewHistorialVentas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewHistorialVentas.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewHistorialVentas.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            this.dataGridViewHistorialVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewHistorialVentas.DefaultCellStyle = dataGridViewCellStyle11;
+            this.dataGridViewHistorialVentas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewHistorialVentas.Location = new System.Drawing.Point(36, 60);
+            this.dataGridViewHistorialVentas.MultiSelect = false;
+            this.dataGridViewHistorialVentas.Name = "dataGridViewHistorialVentas";
+            this.dataGridViewHistorialVentas.ReadOnly = true;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewHistorialVentas.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            this.dataGridViewHistorialVentas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.dataGridViewHistorialVentas.ShowEditingIcon = false;
+            this.dataGridViewHistorialVentas.Size = new System.Drawing.Size(975, 529);
+            this.dataGridViewHistorialVentas.TabIndex = 0;
+            // 
+            // txtHistorialVentas
+            // 
+            this.txtHistorialVentas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtHistorialVentas.Location = new System.Drawing.Point(36, 32);
+            this.txtHistorialVentas.Name = "txtHistorialVentas";
+            this.txtHistorialVentas.Size = new System.Drawing.Size(975, 20);
+            this.txtHistorialVentas.TabIndex = 1;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -633,6 +725,10 @@
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewClientes)).EndInit();
+            this.tabHistorialVentas.ResumeLayout(false);
+            this.tableLayoutPanel6.ResumeLayout(false);
+            this.tableLayoutPanel6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHistorialVentas)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -674,6 +770,10 @@
         private System.Windows.Forms.Button btnGuardarVenta;
         private System.Windows.Forms.Button btnCancelarVenta;
         private System.Windows.Forms.Button btnQuitarVenta;
+        private System.Windows.Forms.TabPage tabHistorialVentas;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
+        private System.Windows.Forms.DataGridView dataGridViewHistorialVentas;
+        private System.Windows.Forms.TextBox txtHistorialVentas;
     }
 }
 

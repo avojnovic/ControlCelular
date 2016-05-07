@@ -14,7 +14,8 @@ namespace ControlCelular
 {
     public partial class FormTelefono : Form
     {
-        public Telefono _telenofo = null;
+        public Telefono _telefono = null;
+        public Dictionary<int, Telefono> _telefonos;
         public Dictionary<int, Modelo> _modelos;
         public Dictionary<int, Proveedor> _proveedores;
         public Dictionary<int, Marca> _marcas;
@@ -35,16 +36,16 @@ namespace ControlCelular
  
 
 
-            if (_telenofo != null)
+            if (_telefono != null)
             {
-                TxtId.Text = _telenofo.Id.ToString();
-                TxtColor.Text = _telenofo.Color;
-                TxtImei.Text = _telenofo.Imei.ToString();
-                txtCosto.Text = _telenofo.Costo.ToString();
+                TxtId.Text = _telefono.Id.ToString();
+                TxtColor.Text = _telefono.Color;
+                TxtImei.Text = _telefono.Imei.ToString();
+                txtCosto.Text = _telefono.Costo.ToString();
                 List<Modelo> l = new List<Modelo>();
-                l.Add(_telenofo.Modelo);
+                l.Add(_telefono.Modelo);
                 setGridViewModelos(l);
-                CmbProveedor.SelectedValue = _telenofo.Proveedor.Id;
+                CmbProveedor.SelectedValue = _telefono.Proveedor.Id;
                
             }
             else
@@ -96,6 +97,38 @@ namespace ControlCelular
                 txtBuscarModelos.BackColor = Color.White;
             }
 
+
+            if (_telefono == null)
+            {//Nuevo
+                var duplicado = (from x in _telefonos.Values.ToList()
+                                 where x.Imei == TxtImei.Text.ToString()
+                                 select x
+                                           );
+
+                if (duplicado != null && duplicado.ToList().Count > 0)
+                {
+                    MessageBox.Show("El IMEI Ingresado ya existe: " + duplicado.ToList()[0].ModeloDescripcion);
+                    ok = false;
+                }
+            }
+            else
+            {
+                var duplicado = (from x in _telefonos.Values.ToList()
+                                 where x.Imei == TxtImei.Text.ToString()
+                                 select x
+                                           );
+                List<Telefono> list = duplicado.ToList();
+                if (_telefono.Imei.Trim() != TxtImei.Text.ToString().Trim())
+                {
+                    if (duplicado != null && list.Count > 0)
+                    {
+                        MessageBox.Show("El IMEI Ingresado ya existe: " + list[0].ModeloDescripcion);
+                        ok = false;
+                    }
+                }
+            }
+
+
             return ok;
 
 
@@ -106,25 +139,27 @@ namespace ControlCelular
             if (validar())
             {
                 bool insert = false;
-                if (_telenofo == null)
+                if (_telefono == null)
                 {//Nuevo
-                    _telenofo = new Telefono();
+
+                   _telefono = new Telefono();
                     insert = true;
+                    _telefono.Venta = 0;
                 }
 
-                _telenofo.Imei = TxtImei.Text.ToString();
-                _telenofo.Modelo = (Modelo)dataGridViewModelos.CurrentRow.DataBoundItem;
-                _telenofo.Proveedor = (Proveedor)CmbProveedor.SelectedItem;
-                _telenofo.Color = TxtColor.Text.ToString();
-                _telenofo.Costo = decimal.Parse(txtCosto.Text.ToString());
+                _telefono.Imei = TxtImei.Text.ToString();
+                _telefono.Modelo = (Modelo)dataGridViewModelos.CurrentRow.DataBoundItem;
+                _telefono.Proveedor = (Proveedor)CmbProveedor.SelectedItem;
+                _telefono.Color = TxtColor.Text.ToString();
+                _telefono.Costo = decimal.Parse(txtCosto.Text.ToString());
 
 
-                _telenofo.Borrado = false;
+                _telefono.Borrado = false;
 
                 if (insert)
-                    TelefonoDAO.insert(Application.StartupPath, _telenofo);
+                    TelefonoDAO.insert(Application.StartupPath, _telefono);
                 else
-                    TelefonoDAO.update(Application.StartupPath, _telenofo);
+                    TelefonoDAO.update(Application.StartupPath, _telefono);
 
 
                 this.Close();
@@ -142,8 +177,8 @@ namespace ControlCelular
             DialogResult dialogResult = MessageBox.Show("¿Esta seguro que desea borrar el telefono?", "Borrar", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                _telenofo.Borrado = true;
-                TelefonoDAO.update(Application.StartupPath, _telenofo);
+                _telefono.Borrado = true;
+                TelefonoDAO.update(Application.StartupPath, _telefono);
                 this.Close();
             }
             else if (dialogResult == DialogResult.No)
@@ -190,10 +225,10 @@ namespace ControlCelular
             else if (txtBuscarModelos.Text.Length == 0)
             {
 
-                if (_telenofo != null)
+                if (_telefono != null)
                 {
                     List<Modelo> l = new List<Modelo>();
-                    l.Add(_telenofo.Modelo);
+                    l.Add(_telefono.Modelo);
                     setGridViewModelos(l);
 
                 }
@@ -211,6 +246,16 @@ namespace ControlCelular
             {
                 e.Handled = true;
                 return;
+            }
+
+            if (e.KeyChar == Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator) && txtCosto.Text.Contains(Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)))
+            {
+                e.Handled = true;
+                return;
+            }
+            else
+            {
+                txtCosto.BackColor = Color.White;
             }
         }
 
