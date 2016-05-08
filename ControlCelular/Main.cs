@@ -494,28 +494,56 @@ namespace ControlCelular
 
         private void btnGuardarVenta_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("¿Esta seguro que desea Guardar la venta?", "Guardar", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
+            if (_venta == null || _venta.Values.ToList().Count == 0)
             {
-
-                foreach (Venta x in _venta.Values.ToList())
-                {
-                    VentaDAO.insert(Application.StartupPath, x);
-
-                }
-
-
-                _venta = null;
-                dataGridViewVentas.DataSource = null;
-                txtCostoVenta.Text = "";
-                txtEquipoVenta.Text = "";
-                txtPrecioVenta.Text = "";
-                txtImeiVenta.Text = "";
+                MessageBox.Show("No se ingresaron telefonos en la venta");
 
             }
-            else if (dialogResult == DialogResult.No)
+            else
             {
+                if (txtPagadoVenta.Text.Trim() == string.Empty)
+                {
+                    txtPagadoVenta.BackColor = Color.Red;
+                }
+                else
+                {
 
+                    DialogResult dialogResult = MessageBox.Show("¿Esta seguro que desea Guardar la venta?", "Guardar", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+
+
+                        decimal monto = 0;
+                        foreach (Venta x in _venta.Values.ToList())
+                        {
+                            VentaDAO.insert(Application.StartupPath, x);
+                            monto += x.Monto;
+
+                        }
+
+                        monto = monto - decimal.Parse(txtPagadoVenta.Text.ToString());
+                        Cliente cli=(Cliente)cmbClienteVenta.SelectedItem;
+                        cli.Deuda=cli.Deuda-monto;
+
+                        if(monto!=0)
+                        {
+                         ClienteDAO.update(Application.StartupPath,cli);
+                        }
+
+                        _venta = null;
+                        dataGridViewVentas.DataSource = null;
+                        txtCostoVenta.Text = "";
+                        txtEquipoVenta.Text = "";
+                        txtPrecioVenta.Text = "";
+                        txtImeiVenta.Text = "";
+                        txtPagadoVenta.Text = "";
+
+                    }
+                    else if (dialogResult == DialogResult.No)
+                    {
+
+                    }
+                }
             }
         }
 
@@ -530,10 +558,36 @@ namespace ControlCelular
                 txtEquipoVenta.Text = "";
                 txtPrecioVenta.Text = "";
                 txtImeiVenta.Text = "";
+                txtPagadoVenta.Text = "";
 
             }
             else if (dialogResult == DialogResult.No)
             {
+
+            }
+
+        }
+
+        private void txtPagadoVenta_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back) && (e.KeyChar != Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)))
+            {
+                e.Handled = true;
+                return;
+            }
+            else
+            {
+                if (e.KeyChar == Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator) && txtPagadoVenta.Text.Contains(Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)))
+                {
+                    e.Handled = true;
+                    return;
+                }
+                else
+                {
+                    txtPagadoVenta.BackColor = Color.White;
+                }
+
 
             }
 

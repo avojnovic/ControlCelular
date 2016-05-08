@@ -34,8 +34,16 @@ namespace DAO
                 x.Id = reader.GetInt32(0);
                 x.Nombre = reader.GetString(1);
                 x.Apellido = reader.GetString(2);
-                x.Descripcion = reader.GetString(3);
+                if (!reader.IsDBNull(3))
+                    x.Descripcion = reader.GetString(3);
+                else
+                    x.Descripcion = "";
                 x.Borrado = reader.GetBoolean(4);
+                if (!reader.IsDBNull(5))
+                    x.Deuda = reader.GetDecimal(5);
+                else
+                    x.Deuda = 0;
+
                 _dic.Add(x.Id, x);
             }
             reader.Close();
@@ -51,6 +59,7 @@ namespace DAO
             cmd.Parameters.Add("@Apellido", OleDbType.VarChar, 255).Value = x.Apellido;
             cmd.Parameters.Add("@Descripcion", OleDbType.VarChar, 255).Value = x.Descripcion;
             cmd.Parameters.Add("@Borrado", OleDbType.Boolean, 255).Value = x.Borrado;
+            cmd.Parameters.Add("@Deuda", OleDbType.Currency, 255).Value = x.Deuda;
 
             if (id)
             {
@@ -65,8 +74,8 @@ namespace DAO
             OleDbConnection connection = new OleDbConnection(strconnection);
             OleDbCommand cmd = new OleDbCommand();
 
-            cmd.CommandText = @"INSERT INTO Cliente (Nombre,Apellido,Descripcion,Borrado) 
-                                VALUES(@Nombre,@Apellido,@Descripcion,@Borrado)";
+            cmd.CommandText = @"INSERT INTO Cliente (Nombre,Apellido,Descripcion,Borrado,Deuda) 
+                                VALUES(@Nombre,@Apellido,@Descripcion,@Borrado,@Deuda)";
 
 
             cmd.CommandType = CommandType.Text;
@@ -102,7 +111,7 @@ namespace DAO
             OleDbConnection connection = new OleDbConnection(strconnection);
             OleDbCommand cmd = new OleDbCommand();
 
-            cmd.CommandText = @"UPDATE Cliente SET Nombre=@Nombre,Apellido=@Apellido,Descripcion=@Descripcion, Borrado=@Borrado WHERE ID=@ID";
+            cmd.CommandText = @"UPDATE Cliente SET Nombre=@Nombre,Apellido=@Apellido,Descripcion=@Descripcion, Borrado=@Borrado, Deuda=@Deuda WHERE ID=@ID";
 
             cmd.CommandType = CommandType.Text;
 

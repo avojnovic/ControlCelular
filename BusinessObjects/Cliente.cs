@@ -54,5 +54,13 @@ namespace BusinessObjects
             get { return _nombre + " " + _apellido; }
            
         }
+
+        private decimal _deuda;
+
+        public decimal Deuda
+        {
+            get { return _deuda; }
+            set { _deuda = value; }
+        }
     }
 }
