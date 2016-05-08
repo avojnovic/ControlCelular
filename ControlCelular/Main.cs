@@ -23,7 +23,7 @@ namespace ControlCelular
         Dictionary<int, Cliente> _clientes = new Dictionary<int, Cliente>();
         Dictionary<string, Venta> _venta = new Dictionary<string, Venta>();
         Dictionary<int, Venta> _historialVentas = new Dictionary<int, Venta>();
-
+        bool loginok = false;
         public Main()
         {
             InitializeComponent();
@@ -32,12 +32,37 @@ namespace ControlCelular
         private void Main_Load(object sender, EventArgs e)
         {
 
-            _marcas = MarcaDAO.get(Application.StartupPath);
-            _sistemasOperativos = SistemaOperativoDAO.get(Application.StartupPath);
-            _modelos = ModeloDAO.get(Application.StartupPath, _sistemasOperativos, _marcas);
-            _proveedores = ProveedorDAO.get(Application.StartupPath);
-            _clientes = ClienteDAO.get(Application.StartupPath);
-            refreshTelefonos(true);
+            this.Hide();
+
+            FormLogin logon = new FormLogin();
+
+            if (logon.ShowDialog() != DialogResult.OK)
+            {
+                
+                //Handle authentication failures as necessary, for example:
+                Application.Exit();
+            }
+            else
+            {
+                loginok = logon.loginok;
+                this.CenterToScreen();
+                _marcas = MarcaDAO.get(Application.StartupPath);
+                _sistemasOperativos = SistemaOperativoDAO.get(Application.StartupPath);
+                _modelos = ModeloDAO.get(Application.StartupPath, _sistemasOperativos, _marcas);
+                _proveedores = ProveedorDAO.get(Application.StartupPath);
+                _clientes = ClienteDAO.get(Application.StartupPath);
+                refreshTelefonos(true);
+                this.Show();
+
+            }
+
+
+            if (!loginok)
+            {
+                this.Close();
+            }
+
+          
 
 
         }
@@ -70,7 +95,23 @@ namespace ControlCelular
                 refreshHistorialVentas(true);
             }
 
+            if (name == "tabProveedores")
+            {
+                refreshProveedores(true);
+            }
+
+
         }
+
+        private void refreshProveedores(bool fromDB)
+        {
+            if (fromDB)
+                _proveedores = ProveedorDAO.get(Application.StartupPath);
+
+            setGridViewProveedores(_proveedores.Values.ToList());
+        }
+
+       
 
         private void refreshHistorialVentas(bool fromDB)
         {
@@ -113,6 +154,16 @@ namespace ControlCelular
             dataGridViewTelefonos.Columns["ProveedorNombre"].HeaderText = "Nombre Proveedor";
             dataGridViewTelefonos.Columns["ModeloDescripcion"].HeaderText = "Modelo";
             dataGridViewTelefonos.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+        }
+
+        private void setGridViewProveedores(List<Proveedor> list)
+        {
+            
+            dataGridViewProveedor.DataSource = (from o in list where o.Borrado == false select o).ToList();
+            
+            dataGridViewProveedor.Columns["Borrado"].Visible = false;
+           
+            dataGridViewProveedor.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
 
         private void setGridViewHistorialVentas(List<Venta> list)
@@ -271,6 +322,47 @@ namespace ControlCelular
             refreshModelos(true);
         }
 
+
+        private void btnNuevoProveedor_Click(object sender, EventArgs e)
+        {
+            FormProveedor _form = new FormProveedor();
+
+            _form.ShowDialog();
+            refreshProveedores(true);
+        }
+
+        private void txtBuscarProveedor_TextChanged(object sender, EventArgs e)
+        {
+            if (txtBuscarProveedor.Text.Length > 0)
+            {
+                var res = (from o in _proveedores.Values.ToList()
+                           where o.Nombre.Trim().ToUpper().Contains(txtBuscarProveedor.Text.Trim().ToUpper()) || o.Descripcion.Trim().ToUpper().Contains(txtBuscarProveedor.Text.Trim().ToUpper())
+                           select o);
+
+                setGridViewProveedores((List<Proveedor>)res.ToList());
+
+            }
+            else if (txtBuscarProveedor.Text.Length == 0)
+            {
+
+                setGridViewProveedores(_proveedores.Values.ToList());
+
+            }
+        }
+
+        private void dataGridViewProveedor_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Proveedor currentObject = (Proveedor)dataGridViewProveedor.CurrentRow.DataBoundItem;
+
+            FormProveedor _form = new FormProveedor();
+
+            _form._proveedor = currentObject;
+            _form.ShowDialog();
+
+            refreshProveedores(true);
+        }
+
+      
         private void btnClienteNuevo_Click(object sender, EventArgs e)
         {
             FormCliente _form = new FormCliente();
@@ -592,6 +684,14 @@ namespace ControlCelular
             }
 
         }
+
+       
+
+      
+
+    
+
+       
 
 
 

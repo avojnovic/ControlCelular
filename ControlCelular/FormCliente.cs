@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using BusinessObjects;
 using DAO;
+using System.Globalization;
 
 namespace ControlCelular
 {
@@ -24,12 +25,15 @@ namespace ControlCelular
 
         private void FormCliente_Load(object sender, EventArgs e)
         {
+
+            this.CenterToScreen();
             if (_cliente != null)
             {
                 TxtId.Text = _cliente.Id.ToString();
                 TxtNombre.Text = _cliente.Nombre;
                 txtDescripcion.Text = _cliente.Descripcion;
                 TxtApellido.Text = _cliente.Apellido;
+                txtDeuda.Text = _cliente.Deuda.ToString();
 
 
             }
@@ -84,6 +88,7 @@ namespace ControlCelular
 
                 _cliente.Nombre = TxtNombre.Text.ToString();
                 _cliente.Apellido = TxtApellido.Text.ToString();
+                _cliente.Deuda = decimal.Parse(txtDeuda.Text.ToString());
                 _cliente.Borrado = false;
 
                 if (insert)
@@ -114,6 +119,30 @@ namespace ControlCelular
             {
 
             }
+        }
+
+        private void txtDeuda_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+            if ((e.KeyChar != '-') && !(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back) && (e.KeyChar != Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)))
+            {
+              
+                e.Handled = true;
+                return;
+            }
+
+            if (e.KeyChar == '-' && txtDeuda.Text.ToString().Length > 0)
+            {
+                e.Handled = true;
+                return;
+            }
+
+            if (e.KeyChar == Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator) && txtDeuda.Text.Contains(Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)))
+            {
+                e.Handled = true;
+                return;
+            }
+          
         }
 
        

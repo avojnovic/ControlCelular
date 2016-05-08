@@ -8,59 +8,61 @@ using System.Data;
 
 namespace DAO
 {
-    public static class ProveedorDAO
+   public static class UsuarioDAO
     {
-        public static Dictionary<int, Proveedor> get(string dbPath)
+
+        public static Dictionary<int, Usuario> get(string dbPath)
         {
+
+
             string connection = DAO.Properties.Settings.Default.ConnectionString;
             connection = connection.Replace("PATH", dbPath);
 
 
             OleDbConnection con = new OleDbConnection(connection);
             con.Open();
-            OleDbCommand cmd = new OleDbCommand("SELECT * FROM Proveedor", con);
+            OleDbCommand cmd = new OleDbCommand(@"SELECT * FROM Usuario", con);
             OleDbDataReader reader = cmd.ExecuteReader();
 
 
-            Dictionary<int, Proveedor> _list = new Dictionary<int, Proveedor>();
+            Dictionary<int, Usuario> _dic = new Dictionary<int, Usuario>();
             while (reader.Read())
             {
-                Proveedor x = new Proveedor();
+                Usuario x = new Usuario();
 
                 x.Id = reader.GetInt32(0);
-                x.Nombre = reader.GetString(1);
-                x.Descripcion = reader.GetString(2);
-                x.Borrado = reader.GetBoolean(3);
-                _list.Add(x.Id, x);
+                x.NombreUsuario = reader.GetString(1);
+                x.Password = reader.GetString(2);
+                              
+
+                _dic.Add(x.Id, x);
             }
             reader.Close();
 
-            return _list;
+            return _dic;
 
         }
 
-        private static void addParameters(Proveedor x, OleDbCommand cmd, bool id)
+
+        private static void addParameters(Usuario x, OleDbCommand cmd, bool id)
         {
-            cmd.Parameters.Add("@Nombre", OleDbType.VarChar, 255).Value = x.Nombre;
-            
-            cmd.Parameters.Add("@Descripcion", OleDbType.VarChar, 255).Value = x.Descripcion;
-            cmd.Parameters.Add("@Borrado", OleDbType.Boolean, 255).Value = x.Borrado;
-           
+            cmd.Parameters.Add("@NombreUsuario", OleDbType.VarChar, 255).Value = x.NombreUsuario;
+            cmd.Parameters.Add("@Password", OleDbType.VarChar, 255).Value = x.Password;
             if (id)
             {
                 cmd.Parameters.Add("@ID", OleDbType.Integer, 255).Value = x.Id;
             }
         }
 
-        public static int insert(string dbPath, Proveedor x)
+        public static int insert(string dbPath, Usuario x)
         {
             string strconnection = DAO.Properties.Settings.Default.ConnectionString;
             strconnection = strconnection.Replace("PATH", dbPath);
             OleDbConnection connection = new OleDbConnection(strconnection);
             OleDbCommand cmd = new OleDbCommand();
 
-            cmd.CommandText = @"INSERT INTO Proveedor (Nombre,Descripcion,Borrado) 
-                                VALUES(@Nombre,@Descripcion,@Borrado)";
+            cmd.CommandText = @"INSERT INTO Usuario (NombreUsuario,Password) 
+                                VALUES(@NombreUsuario,@Password)";
 
 
             cmd.CommandType = CommandType.Text;
@@ -89,14 +91,14 @@ namespace DAO
         }
 
 
-        public static void update(string dbPath, Proveedor x)
+        public static void update(string dbPath, Usuario x)
         {
             string strconnection = DAO.Properties.Settings.Default.ConnectionString;
             strconnection = strconnection.Replace("PATH", dbPath);
             OleDbConnection connection = new OleDbConnection(strconnection);
             OleDbCommand cmd = new OleDbCommand();
 
-            cmd.CommandText = @"UPDATE Proveedor SET Nombre=@Nombre,Descripcion=@Descripcion, Borrado=@Borrado WHERE ID=@ID";
+            cmd.CommandText = @"UPDATE Usuario SET NombreUsuario=@NombreUsuario,Password=@Password WHERE ID=@ID";
 
             cmd.CommandType = CommandType.Text;
 
@@ -116,7 +118,6 @@ namespace DAO
             connection.Dispose();
             connection.Close();
         }
-
 
     }
 }

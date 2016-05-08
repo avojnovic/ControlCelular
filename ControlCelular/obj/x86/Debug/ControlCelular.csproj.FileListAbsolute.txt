@@ -10,10 +10,6 @@ C:\Users\avojn\Apps\ControlCelular\ControlCelular\bin\Debug\DAO.dll
 C:\Users\avojn\Apps\ControlCelular\ControlCelular\bin\Debug\BusinessObjects.pdb
 C:\Users\avojn\Apps\ControlCelular\ControlCelular\bin\Debug\DAO.pdb
 C:\Users\avojn\Apps\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.csprojResolveAssemblyReference.cache
-D:\Proyectos\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.exe
-D:\Proyectos\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.pdb
-D:\Proyectos\ControlCelular\ControlCelular\bin\Debug\ControlCelular.exe
-D:\Proyectos\ControlCelular\ControlCelular\bin\Debug\ControlCelular.pdb
 D:\Proyectos\ControlCelular\ControlCelular\bin\Debug\BusinessObjects.dll
 D:\Proyectos\ControlCelular\ControlCelular\bin\Debug\DAO.dll
 D:\Proyectos\ControlCelular\ControlCelular\bin\Debug\BusinessObjects.pdb
@@ -40,3 +36,12 @@ D:\ControlCelular\ControlCelular\bin\Debug\Control Celular.exe
 D:\ControlCelular\ControlCelular\bin\Debug\Control Celular.pdb
 D:\ControlCelular\ControlCelular\obj\x86\Debug\Control Celular.exe
 D:\ControlCelular\ControlCelular\obj\x86\Debug\Control Celular.pdb
+D:\Proyectos\ControlCelular\ControlCelular\obj\x86\Debug\Control Celular.exe
+D:\Proyectos\ControlCelular\ControlCelular\obj\x86\Debug\Control Celular.pdb
+D:\Proyectos\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.FormCliente.resources
+D:\Proyectos\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.FormModelo.resources
+D:\Proyectos\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.FormTelefono.resources
+D:\Proyectos\ControlCelular\ControlCelular\bin\Debug\Control Celular.exe
+D:\Proyectos\ControlCelular\ControlCelular\bin\Debug\Control Celular.pdb
+D:\Proyectos\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.FormLogin.resources
+D:\Proyectos\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.FormProveedor.resources

@@ -24,6 +24,7 @@ namespace ControlCelular
 
         private void FormModelo_Load(object sender, EventArgs e)
         {
+            this.CenterToScreen();
             CmbSistemaOperativo.DataSource = _sistemasOperativos.Values.ToList();
             CmbMarca.DataSource = _marcas.Values.ToList();
 

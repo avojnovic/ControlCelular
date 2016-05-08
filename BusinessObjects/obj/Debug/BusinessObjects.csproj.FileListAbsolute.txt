@@ -12,3 +12,4 @@ D:\ControlCelular\BusinessObjects\obj\Debug\BusinessObjects.dll
 D:\ControlCelular\BusinessObjects\obj\Debug\BusinessObjects.pdb
 C:\Users\avojn\Apps\ControlCelular\BusinessObjects\obj\Debug\BusinessObjects.csprojResolveAssemblyReference.cache
 D:\ControlCelular\BusinessObjects\obj\Debug\BusinessObjects.csprojResolveAssemblyReference.cache
+D:\Proyectos\ControlCelular\BusinessObjects\obj\Debug\BusinessObjects.csprojResolveAssemblyReference.cache

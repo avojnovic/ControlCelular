@@ -27,6 +27,7 @@ namespace ControlCelular
 
         private void FormTelefono_Load(object sender, EventArgs e)
         {
+            this.CenterToScreen();
             //CmbModelo.DataSource = _modelos.Values.ToList();
             CmbProveedor.DataSource = _proveedores.Values.ToList();
             CmbProveedor.DisplayMember = "Nombre";
