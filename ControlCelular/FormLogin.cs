@@ -17,6 +17,7 @@ namespace ControlCelular
         public bool loginok = false;
         public FormLogin()
         {
+           
             InitializeComponent();
 
         }

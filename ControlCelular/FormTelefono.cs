@@ -20,6 +20,7 @@ namespace ControlCelular
         public Dictionary<int, Proveedor> _proveedores;
         public Dictionary<int, Marca> _marcas;
         public Dictionary<int, SistemaOperativo> _sistemasOperativos;
+        public List<Proveedor> _proveedoresNoBorrados;
         public FormTelefono()
         {
             InitializeComponent();
@@ -29,7 +30,8 @@ namespace ControlCelular
         {
             this.CenterToScreen();
             //CmbModelo.DataSource = _modelos.Values.ToList();
-            CmbProveedor.DataSource = _proveedores.Values.ToList();
+            _proveedoresNoBorrados=(from o in _proveedores.Values.ToList() where o.Borrado == false select o).ToList();
+            CmbProveedor.DataSource = _proveedoresNoBorrados;
             CmbProveedor.DisplayMember = "Nombre";
             CmbProveedor.ValueMember = "Id";
 
@@ -46,7 +48,9 @@ namespace ControlCelular
                 List<Modelo> l = new List<Modelo>();
                 l.Add(_telefono.Modelo);
                 setGridViewModelos(l);
-                CmbProveedor.SelectedValue = _telefono.Proveedor.Id;
+
+                if (!_telefono.Proveedor.Borrado)
+                    CmbProveedor.SelectedValue = _telefono.Proveedor.Id;
                
             }
             else
@@ -98,6 +102,15 @@ namespace ControlCelular
                 txtBuscarModelos.BackColor = Color.White;
             }
 
+            if (CmbProveedor.SelectedItem == null)
+            {
+                lblProveedor.ForeColor = Color.Red;
+                ok = false;
+            }
+            else
+            {
+                lblProveedor.ForeColor = Color.Black;   
+            }
 
             if (_telefono == null)
             {//Nuevo

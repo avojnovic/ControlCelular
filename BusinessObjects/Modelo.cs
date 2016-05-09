@@ -94,5 +94,13 @@ namespace BusinessObjects
             get { return _modelo + " - " + _nombre; }
         }
 
+        private int _stock;
+
+        public int Stock
+        {
+            get { return _stock; }
+            set { _stock = value; }
+        }
+
     }
 }

@@ -39,7 +39,7 @@
             this.TxtImei = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.TxtColor = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lblProveedor = new System.Windows.Forms.Label();
             this.CmbProveedor = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txtCosto = new System.Windows.Forms.TextBox();
@@ -69,7 +69,7 @@
             this.tableLayoutPanel1.Controls.Add(this.TxtImei, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.TxtColor, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.lblProveedor, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.CmbProveedor, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.txtCosto, 1, 4);
@@ -146,15 +146,15 @@
             this.TxtColor.Size = new System.Drawing.Size(789, 20);
             this.TxtColor.TabIndex = 7;
             // 
-            // label5
+            // lblProveedor
             // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 98);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(75, 13);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "PROVEEDOR";
+            this.lblProveedor.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblProveedor.AutoSize = true;
+            this.lblProveedor.Location = new System.Drawing.Point(3, 98);
+            this.lblProveedor.Name = "lblProveedor";
+            this.lblProveedor.Size = new System.Drawing.Size(75, 13);
+            this.lblProveedor.TabIndex = 6;
+            this.lblProveedor.Text = "PROVEEDOR";
             // 
             // CmbProveedor
             // 
@@ -342,7 +342,7 @@
         private System.Windows.Forms.TextBox TxtImei;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblProveedor;
         private System.Windows.Forms.TextBox TxtColor;
         private System.Windows.Forms.Button BtnGuardar;
         private System.Windows.Forms.Button BtnCancelar;

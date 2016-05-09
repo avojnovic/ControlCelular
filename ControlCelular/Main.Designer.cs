@@ -31,6 +31,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -43,7 +44,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabTelefonos = new System.Windows.Forms.TabPage();
@@ -51,6 +51,7 @@
             this.dataGridViewTelefonos = new System.Windows.Forms.DataGridView();
             this.BtnNuevoTelefono = new System.Windows.Forms.Button();
             this.txtBuscarTefonos = new System.Windows.Forms.TextBox();
+            this.btnExportTelefonos = new System.Windows.Forms.Button();
             this.tabModelos = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.dataGridViewModelos = new System.Windows.Forms.DataGridView();
@@ -92,6 +93,12 @@
             this.btnNuevoProveedor = new System.Windows.Forms.Button();
             this.txtBuscarProveedor = new System.Windows.Forms.TextBox();
             this.tabListaPrecio = new System.Windows.Forms.TabPage();
+            this.btnExportarModelos = new System.Windows.Forms.Button();
+            this.btnExportarClientes = new System.Windows.Forms.Button();
+            this.btnExportarHistorialVentas = new System.Windows.Forms.Button();
+            this.btnExportarProveedores = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtTotal = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabTelefonos.SuspendLayout();
@@ -163,18 +170,19 @@
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 3;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel2.Controls.Add(this.dataGridViewTelefonos, 1, 2);
             this.tableLayoutPanel2.Controls.Add(this.BtnNuevoTelefono, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.txtBuscarTefonos, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.btnExportTelefonos, 2, 1);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 3;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(923, 393);
             this.tableLayoutPanel2.TabIndex = 0;
@@ -204,7 +212,7 @@
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewTelefonos.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewTelefonos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewTelefonos.Location = new System.Drawing.Point(36, 60);
+            this.dataGridViewTelefonos.Location = new System.Drawing.Point(38, 68);
             this.dataGridViewTelefonos.MultiSelect = false;
             this.dataGridViewTelefonos.Name = "dataGridViewTelefonos";
             this.dataGridViewTelefonos.ReadOnly = true;
@@ -218,13 +226,13 @@
             this.dataGridViewTelefonos.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewTelefonos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dataGridViewTelefonos.ShowEditingIcon = false;
-            this.dataGridViewTelefonos.Size = new System.Drawing.Size(848, 330);
+            this.dataGridViewTelefonos.Size = new System.Drawing.Size(847, 322);
             this.dataGridViewTelefonos.TabIndex = 0;
             this.dataGridViewTelefonos.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTelefonos_CellMouseDoubleClick);
             // 
             // BtnNuevoTelefono
             // 
-            this.BtnNuevoTelefono.Location = new System.Drawing.Point(36, 3);
+            this.BtnNuevoTelefono.Location = new System.Drawing.Point(38, 3);
             this.BtnNuevoTelefono.Name = "BtnNuevoTelefono";
             this.BtnNuevoTelefono.Size = new System.Drawing.Size(75, 22);
             this.BtnNuevoTelefono.TabIndex = 2;
@@ -235,11 +243,21 @@
             // txtBuscarTefonos
             // 
             this.txtBuscarTefonos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBuscarTefonos.Location = new System.Drawing.Point(36, 32);
+            this.txtBuscarTefonos.Location = new System.Drawing.Point(38, 37);
             this.txtBuscarTefonos.Name = "txtBuscarTefonos";
-            this.txtBuscarTefonos.Size = new System.Drawing.Size(848, 20);
+            this.txtBuscarTefonos.Size = new System.Drawing.Size(847, 20);
             this.txtBuscarTefonos.TabIndex = 1;
             this.txtBuscarTefonos.TextChanged += new System.EventHandler(this.txtBuscarTefonos_TextChanged);
+            // 
+            // btnExportTelefonos
+            // 
+            this.btnExportTelefonos.Image = ((System.Drawing.Image)(resources.GetObject("btnExportTelefonos.Image")));
+            this.btnExportTelefonos.Location = new System.Drawing.Point(891, 33);
+            this.btnExportTelefonos.Name = "btnExportTelefonos";
+            this.btnExportTelefonos.Size = new System.Drawing.Size(29, 29);
+            this.btnExportTelefonos.TabIndex = 3;
+            this.btnExportTelefonos.UseVisualStyleBackColor = true;
+            this.btnExportTelefonos.Click += new System.EventHandler(this.btnExportTelefonos_Click);
             // 
             // tabModelos
             // 
@@ -255,18 +273,19 @@
             // tableLayoutPanel3
             // 
             this.tableLayoutPanel3.ColumnCount = 3;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel3.Controls.Add(this.dataGridViewModelos, 1, 2);
             this.tableLayoutPanel3.Controls.Add(this.BtnNuevoModelo, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.txtBuscarModelos, 1, 1);
+            this.tableLayoutPanel3.Controls.Add(this.btnExportarModelos, 2, 1);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 3;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(923, 393);
             this.tableLayoutPanel3.TabIndex = 1;
@@ -294,7 +313,7 @@
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewModelos.DefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridViewModelos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewModelos.Location = new System.Drawing.Point(36, 60);
+            this.dataGridViewModelos.Location = new System.Drawing.Point(38, 68);
             this.dataGridViewModelos.MultiSelect = false;
             this.dataGridViewModelos.Name = "dataGridViewModelos";
             this.dataGridViewModelos.ReadOnly = true;
@@ -307,13 +326,13 @@
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewModelos.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridViewModelos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewModelos.Size = new System.Drawing.Size(848, 330);
+            this.dataGridViewModelos.Size = new System.Drawing.Size(847, 322);
             this.dataGridViewModelos.TabIndex = 0;
             this.dataGridViewModelos.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewModelos_CellMouseDoubleClick);
             // 
             // BtnNuevoModelo
             // 
-            this.BtnNuevoModelo.Location = new System.Drawing.Point(36, 3);
+            this.BtnNuevoModelo.Location = new System.Drawing.Point(38, 3);
             this.BtnNuevoModelo.Name = "BtnNuevoModelo";
             this.BtnNuevoModelo.Size = new System.Drawing.Size(75, 22);
             this.BtnNuevoModelo.TabIndex = 2;
@@ -324,9 +343,9 @@
             // txtBuscarModelos
             // 
             this.txtBuscarModelos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBuscarModelos.Location = new System.Drawing.Point(36, 32);
+            this.txtBuscarModelos.Location = new System.Drawing.Point(38, 37);
             this.txtBuscarModelos.Name = "txtBuscarModelos";
-            this.txtBuscarModelos.Size = new System.Drawing.Size(848, 20);
+            this.txtBuscarModelos.Size = new System.Drawing.Size(847, 20);
             this.txtBuscarModelos.TabIndex = 1;
             this.txtBuscarModelos.TextChanged += new System.EventHandler(this.txtBuscarModelos_TextChanged);
             // 
@@ -344,25 +363,26 @@
             // tableLayoutPanel4
             // 
             this.tableLayoutPanel4.ColumnCount = 3;
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 52F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel4.Controls.Add(this.btnClienteNuevo, 1, 0);
             this.tableLayoutPanel4.Controls.Add(this.txtBuscarClientes, 1, 1);
             this.tableLayoutPanel4.Controls.Add(this.dataGridViewClientes, 1, 2);
+            this.tableLayoutPanel4.Controls.Add(this.btnExportarClientes, 2, 1);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 3;
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(923, 393);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
             // btnClienteNuevo
             // 
-            this.btnClienteNuevo.Location = new System.Drawing.Point(37, 3);
+            this.btnClienteNuevo.Location = new System.Drawing.Point(38, 3);
             this.btnClienteNuevo.Name = "btnClienteNuevo";
             this.btnClienteNuevo.Size = new System.Drawing.Size(75, 22);
             this.btnClienteNuevo.TabIndex = 3;
@@ -374,9 +394,9 @@
             // 
             this.txtBuscarClientes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBuscarClientes.BackColor = System.Drawing.SystemColors.Window;
-            this.txtBuscarClientes.Location = new System.Drawing.Point(37, 32);
+            this.txtBuscarClientes.Location = new System.Drawing.Point(38, 37);
             this.txtBuscarClientes.Name = "txtBuscarClientes";
-            this.txtBuscarClientes.Size = new System.Drawing.Size(831, 20);
+            this.txtBuscarClientes.Size = new System.Drawing.Size(847, 20);
             this.txtBuscarClientes.TabIndex = 4;
             this.txtBuscarClientes.TextChanged += new System.EventHandler(this.txtBuscarClientes_TextChanged);
             // 
@@ -403,7 +423,7 @@
             dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewClientes.DefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridViewClientes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewClientes.Location = new System.Drawing.Point(37, 60);
+            this.dataGridViewClientes.Location = new System.Drawing.Point(38, 68);
             this.dataGridViewClientes.MultiSelect = false;
             this.dataGridViewClientes.Name = "dataGridViewClientes";
             this.dataGridViewClientes.ReadOnly = true;
@@ -416,7 +436,7 @@
             dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewClientes.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridViewClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewClientes.Size = new System.Drawing.Size(831, 330);
+            this.dataGridViewClientes.Size = new System.Drawing.Size(847, 322);
             this.dataGridViewClientes.TabIndex = 5;
             this.dataGridViewClientes.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewClientes_CellDoubleClick);
             // 
@@ -474,10 +494,12 @@
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 83F));
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 160F));
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.Controls.Add(this.txtPagadoVenta, 1, 0);
-            this.tableLayoutPanel7.Controls.Add(this.label6, 0, 0);
+            this.tableLayoutPanel7.Controls.Add(this.txtTotal, 1, 0);
             this.tableLayoutPanel7.Controls.Add(this.btnGuardarVenta, 2, 0);
             this.tableLayoutPanel7.Controls.Add(this.btnCancelarVenta, 2, 1);
+            this.tableLayoutPanel7.Controls.Add(this.label6, 0, 1);
+            this.tableLayoutPanel7.Controls.Add(this.txtPagadoVenta, 1, 1);
+            this.tableLayoutPanel7.Controls.Add(this.label7, 0, 0);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel7.Location = new System.Drawing.Point(23, 330);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
@@ -490,7 +512,7 @@
             // txtPagadoVenta
             // 
             this.txtPagadoVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPagadoVenta.Location = new System.Drawing.Point(86, 5);
+            this.txtPagadoVenta.Location = new System.Drawing.Point(86, 35);
             this.txtPagadoVenta.Name = "txtPagadoVenta";
             this.txtPagadoVenta.Size = new System.Drawing.Size(154, 20);
             this.txtPagadoVenta.TabIndex = 15;
@@ -500,7 +522,7 @@
             // 
             this.label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(3, 8);
+            this.label6.Location = new System.Drawing.Point(3, 38);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(52, 13);
             this.label6.TabIndex = 16;
@@ -693,17 +715,18 @@
             // tableLayoutPanel6
             // 
             this.tableLayoutPanel6.ColumnCount = 3;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel6.Controls.Add(this.dataGridViewHistorialVentas, 1, 2);
             this.tableLayoutPanel6.Controls.Add(this.txtHistorialVentas, 1, 1);
+            this.tableLayoutPanel6.Controls.Add(this.btnExportarHistorialVentas, 2, 1);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel6.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 3;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel6.Size = new System.Drawing.Size(929, 399);
             this.tableLayoutPanel6.TabIndex = 1;
@@ -733,7 +756,7 @@
             dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewHistorialVentas.DefaultCellStyle = dataGridViewCellStyle11;
             this.dataGridViewHistorialVentas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewHistorialVentas.Location = new System.Drawing.Point(36, 60);
+            this.dataGridViewHistorialVentas.Location = new System.Drawing.Point(38, 68);
             this.dataGridViewHistorialVentas.MultiSelect = false;
             this.dataGridViewHistorialVentas.Name = "dataGridViewHistorialVentas";
             this.dataGridViewHistorialVentas.ReadOnly = true;
@@ -747,15 +770,15 @@
             this.dataGridViewHistorialVentas.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.dataGridViewHistorialVentas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dataGridViewHistorialVentas.ShowEditingIcon = false;
-            this.dataGridViewHistorialVentas.Size = new System.Drawing.Size(854, 336);
+            this.dataGridViewHistorialVentas.Size = new System.Drawing.Size(853, 328);
             this.dataGridViewHistorialVentas.TabIndex = 0;
             // 
             // txtHistorialVentas
             // 
             this.txtHistorialVentas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtHistorialVentas.Location = new System.Drawing.Point(36, 32);
+            this.txtHistorialVentas.Location = new System.Drawing.Point(38, 37);
             this.txtHistorialVentas.Name = "txtHistorialVentas";
-            this.txtHistorialVentas.Size = new System.Drawing.Size(854, 20);
+            this.txtHistorialVentas.Size = new System.Drawing.Size(853, 20);
             this.txtHistorialVentas.TabIndex = 1;
             // 
             // tabProveedores
@@ -771,18 +794,19 @@
             // tableLayoutPanel9
             // 
             this.tableLayoutPanel9.ColumnCount = 3;
-            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 36F));
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel9.Controls.Add(this.dataGridViewProveedor, 1, 2);
             this.tableLayoutPanel9.Controls.Add(this.btnNuevoProveedor, 1, 0);
             this.tableLayoutPanel9.Controls.Add(this.txtBuscarProveedor, 1, 1);
+            this.tableLayoutPanel9.Controls.Add(this.btnExportarProveedores, 2, 1);
             this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel9.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel9.Name = "tableLayoutPanel9";
             this.tableLayoutPanel9.RowCount = 3;
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 29F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel9.Size = new System.Drawing.Size(929, 399);
             this.tableLayoutPanel9.TabIndex = 1;
@@ -812,7 +836,7 @@
             dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewProveedor.DefaultCellStyle = dataGridViewCellStyle14;
             this.dataGridViewProveedor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewProveedor.Location = new System.Drawing.Point(36, 60);
+            this.dataGridViewProveedor.Location = new System.Drawing.Point(38, 68);
             this.dataGridViewProveedor.MultiSelect = false;
             this.dataGridViewProveedor.Name = "dataGridViewProveedor";
             this.dataGridViewProveedor.ReadOnly = true;
@@ -826,13 +850,13 @@
             this.dataGridViewProveedor.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
             this.dataGridViewProveedor.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dataGridViewProveedor.ShowEditingIcon = false;
-            this.dataGridViewProveedor.Size = new System.Drawing.Size(854, 336);
+            this.dataGridViewProveedor.Size = new System.Drawing.Size(853, 328);
             this.dataGridViewProveedor.TabIndex = 0;
             this.dataGridViewProveedor.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProveedor_CellDoubleClick);
             // 
             // btnNuevoProveedor
             // 
-            this.btnNuevoProveedor.Location = new System.Drawing.Point(36, 3);
+            this.btnNuevoProveedor.Location = new System.Drawing.Point(38, 3);
             this.btnNuevoProveedor.Name = "btnNuevoProveedor";
             this.btnNuevoProveedor.Size = new System.Drawing.Size(75, 22);
             this.btnNuevoProveedor.TabIndex = 2;
@@ -843,9 +867,9 @@
             // txtBuscarProveedor
             // 
             this.txtBuscarProveedor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtBuscarProveedor.Location = new System.Drawing.Point(36, 32);
+            this.txtBuscarProveedor.Location = new System.Drawing.Point(38, 37);
             this.txtBuscarProveedor.Name = "txtBuscarProveedor";
-            this.txtBuscarProveedor.Size = new System.Drawing.Size(854, 20);
+            this.txtBuscarProveedor.Size = new System.Drawing.Size(853, 20);
             this.txtBuscarProveedor.TabIndex = 1;
             this.txtBuscarProveedor.TextChanged += new System.EventHandler(this.txtBuscarProveedor_TextChanged);
             // 
@@ -858,6 +882,65 @@
             this.tabListaPrecio.TabIndex = 6;
             this.tabListaPrecio.Text = "Listas de Precio";
             this.tabListaPrecio.UseVisualStyleBackColor = true;
+            // 
+            // btnExportarModelos
+            // 
+            this.btnExportarModelos.Image = ((System.Drawing.Image)(resources.GetObject("btnExportarModelos.Image")));
+            this.btnExportarModelos.Location = new System.Drawing.Point(891, 33);
+            this.btnExportarModelos.Name = "btnExportarModelos";
+            this.btnExportarModelos.Size = new System.Drawing.Size(29, 29);
+            this.btnExportarModelos.TabIndex = 4;
+            this.btnExportarModelos.UseVisualStyleBackColor = true;
+            this.btnExportarModelos.Click += new System.EventHandler(this.btnExportarModelos_Click);
+            // 
+            // btnExportarClientes
+            // 
+            this.btnExportarClientes.Image = ((System.Drawing.Image)(resources.GetObject("btnExportarClientes.Image")));
+            this.btnExportarClientes.Location = new System.Drawing.Point(891, 33);
+            this.btnExportarClientes.Name = "btnExportarClientes";
+            this.btnExportarClientes.Size = new System.Drawing.Size(29, 29);
+            this.btnExportarClientes.TabIndex = 6;
+            this.btnExportarClientes.UseVisualStyleBackColor = true;
+            this.btnExportarClientes.Click += new System.EventHandler(this.btnExportarClientes_Click);
+            // 
+            // btnExportarHistorialVentas
+            // 
+            this.btnExportarHistorialVentas.Image = ((System.Drawing.Image)(resources.GetObject("btnExportarHistorialVentas.Image")));
+            this.btnExportarHistorialVentas.Location = new System.Drawing.Point(897, 33);
+            this.btnExportarHistorialVentas.Name = "btnExportarHistorialVentas";
+            this.btnExportarHistorialVentas.Size = new System.Drawing.Size(29, 29);
+            this.btnExportarHistorialVentas.TabIndex = 4;
+            this.btnExportarHistorialVentas.UseVisualStyleBackColor = true;
+            this.btnExportarHistorialVentas.Click += new System.EventHandler(this.btnExportarHistorialVentas_Click);
+            // 
+            // btnExportarProveedores
+            // 
+            this.btnExportarProveedores.Image = ((System.Drawing.Image)(resources.GetObject("btnExportarProveedores.Image")));
+            this.btnExportarProveedores.Location = new System.Drawing.Point(897, 33);
+            this.btnExportarProveedores.Name = "btnExportarProveedores";
+            this.btnExportarProveedores.Size = new System.Drawing.Size(29, 29);
+            this.btnExportarProveedores.TabIndex = 4;
+            this.btnExportarProveedores.UseVisualStyleBackColor = true;
+            this.btnExportarProveedores.Click += new System.EventHandler(this.btnExportarProveedores_Click);
+            // 
+            // label7
+            // 
+            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(3, 8);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(42, 13);
+            this.label7.TabIndex = 17;
+            this.label7.Text = "TOTAL";
+            // 
+            // txtTotal
+            // 
+            this.txtTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTotal.Location = new System.Drawing.Point(86, 5);
+            this.txtTotal.Name = "txtTotal";
+            this.txtTotal.ReadOnly = true;
+            this.txtTotal.Size = new System.Drawing.Size(154, 20);
+            this.txtTotal.TabIndex = 18;
             // 
             // Main
             // 
@@ -952,6 +1035,13 @@
         private System.Windows.Forms.Button btnNuevoProveedor;
         private System.Windows.Forms.TextBox txtBuscarProveedor;
         private System.Windows.Forms.TabPage tabListaPrecio;
+        private System.Windows.Forms.Button btnExportTelefonos;
+        private System.Windows.Forms.Button btnExportarModelos;
+        private System.Windows.Forms.Button btnExportarClientes;
+        private System.Windows.Forms.Button btnExportarHistorialVentas;
+        private System.Windows.Forms.Button btnExportarProveedores;
+        private System.Windows.Forms.TextBox txtTotal;
+        private System.Windows.Forms.Label label7;
     }
 }
 
