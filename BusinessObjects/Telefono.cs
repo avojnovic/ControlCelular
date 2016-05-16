@@ -23,9 +23,9 @@ namespace BusinessObjects
             set { _imei = value; }
         }
 
-        private string _color;
+        private ColorTelefono _color;
 
-        public string Color
+        public ColorTelefono Color
         {
             get { return _color; }
             set { _color = value; }
@@ -37,6 +37,15 @@ namespace BusinessObjects
         {
             get { return _modelo; }
             set { _modelo = value; }
+        }
+
+
+        private DateTime _fechaCompra;
+
+        public DateTime FechaCompra
+        {
+            get { return _fechaCompra; }
+            set { _fechaCompra = value; }
         }
 
         private Proveedor _proveedor;
@@ -63,6 +72,10 @@ namespace BusinessObjects
             set { _borrado = value; }
         }
 
+        public string ColorNombre
+        {
+            get { return Color.Nombre; }
+        }
 
         public string ProveedorNombre
         {

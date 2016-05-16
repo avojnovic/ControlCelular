@@ -41,14 +41,14 @@
             this.CmbSistemaOperativo = new System.Windows.Forms.ComboBox();
             this.CmbMarca = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.txtProcesador = new System.Windows.Forms.TextBox();
-            this.txtDescripcion = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.BtnGuardar = new System.Windows.Forms.Button();
             this.BtnCancelar = new System.Windows.Forms.Button();
             this.BtnBorrar = new System.Windows.Forms.Button();
+            this.txtDescripcion = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.txtMemoria = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1.SuspendLayout();
@@ -130,7 +130,7 @@
             this.TxtNombre.Location = new System.Drawing.Point(153, 35);
             this.TxtNombre.Name = "TxtNombre";
             this.TxtNombre.Size = new System.Drawing.Size(421, 20);
-            this.TxtNombre.TabIndex = 3;
+            this.TxtNombre.TabIndex = 1;
             // 
             // label3
             // 
@@ -168,7 +168,7 @@
             this.TxtModelo.Location = new System.Drawing.Point(153, 65);
             this.TxtModelo.Name = "TxtModelo";
             this.TxtModelo.Size = new System.Drawing.Size(421, 20);
-            this.TxtModelo.TabIndex = 7;
+            this.TxtModelo.TabIndex = 2;
             // 
             // CmbSistemaOperativo
             // 
@@ -177,7 +177,7 @@
             this.CmbSistemaOperativo.Location = new System.Drawing.Point(153, 94);
             this.CmbSistemaOperativo.Name = "CmbSistemaOperativo";
             this.CmbSistemaOperativo.Size = new System.Drawing.Size(421, 21);
-            this.CmbSistemaOperativo.TabIndex = 10;
+            this.CmbSistemaOperativo.TabIndex = 3;
             // 
             // CmbMarca
             // 
@@ -186,7 +186,7 @@
             this.CmbMarca.Location = new System.Drawing.Point(153, 124);
             this.CmbMarca.Name = "CmbMarca";
             this.CmbMarca.Size = new System.Drawing.Size(421, 21);
-            this.CmbMarca.TabIndex = 11;
+            this.CmbMarca.TabIndex = 4;
             // 
             // label6
             // 
@@ -198,31 +198,13 @@
             this.label6.TabIndex = 13;
             this.label6.Text = "PROCESADOR";
             // 
-            // label7
-            // 
-            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(3, 8);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(80, 13);
-            this.label7.TabIndex = 14;
-            this.label7.Text = "DESCRIPCIÓN";
-            // 
             // txtProcesador
             // 
             this.txtProcesador.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtProcesador.Location = new System.Drawing.Point(153, 155);
             this.txtProcesador.Name = "txtProcesador";
             this.txtProcesador.Size = new System.Drawing.Size(421, 20);
-            this.txtProcesador.TabIndex = 15;
-            // 
-            // txtDescripcion
-            // 
-            this.txtDescripcion.Location = new System.Drawing.Point(153, 213);
-            this.txtDescripcion.Name = "txtDescripcion";
-            this.txtDescripcion.Size = new System.Drawing.Size(338, 195);
-            this.txtDescripcion.TabIndex = 16;
-            this.txtDescripcion.Text = "";
+            this.txtProcesador.TabIndex = 5;
             // 
             // tableLayoutPanel2
             // 
@@ -239,8 +221,8 @@
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 414);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(601, 34);
             this.tableLayoutPanel2.TabIndex = 17;
             // 
@@ -269,10 +251,21 @@
             this.BtnBorrar.Location = new System.Drawing.Point(182, 3);
             this.BtnBorrar.Name = "BtnBorrar";
             this.BtnBorrar.Size = new System.Drawing.Size(75, 23);
-            this.BtnBorrar.TabIndex = 12;
+            this.BtnBorrar.TabIndex = 10;
             this.BtnBorrar.Text = "Borrar";
             this.BtnBorrar.UseVisualStyleBackColor = true;
             this.BtnBorrar.Click += new System.EventHandler(this.BtnBorrar_Click);
+            // 
+            // txtDescripcion
+            // 
+            this.txtDescripcion.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDescripcion.Location = new System.Drawing.Point(153, 213);
+            this.txtDescripcion.Name = "txtDescripcion";
+            this.txtDescripcion.Size = new System.Drawing.Size(421, 195);
+            this.txtDescripcion.TabIndex = 7;
+            this.txtDescripcion.Text = "";
             // 
             // tableLayoutPanel3
             // 
@@ -290,6 +283,16 @@
             this.tableLayoutPanel3.Size = new System.Drawing.Size(146, 195);
             this.tableLayoutPanel3.TabIndex = 18;
             // 
+            // label7
+            // 
+            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(3, 8);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(80, 13);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "DESCRIPCIÓN";
+            // 
             // label8
             // 
             this.label8.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -306,7 +309,7 @@
             this.txtMemoria.Location = new System.Drawing.Point(153, 185);
             this.txtMemoria.Name = "txtMemoria";
             this.txtMemoria.Size = new System.Drawing.Size(421, 20);
-            this.txtMemoria.TabIndex = 20;
+            this.txtMemoria.TabIndex = 6;
             // 
             // FormModelo
             // 

@@ -107,7 +107,7 @@
             this.TxtNombre.Location = new System.Drawing.Point(103, 25);
             this.TxtNombre.Name = "TxtNombre";
             this.TxtNombre.Size = new System.Drawing.Size(219, 20);
-            this.TxtNombre.TabIndex = 3;
+            this.TxtNombre.TabIndex = 1;
             // 
             // label7
             // 
@@ -125,7 +125,7 @@
             this.txtDescripcion.Location = new System.Drawing.Point(103, 85);
             this.txtDescripcion.Name = "txtDescripcion";
             this.txtDescripcion.Size = new System.Drawing.Size(219, 183);
-            this.txtDescripcion.TabIndex = 16;
+            this.txtDescripcion.TabIndex = 2;
             this.txtDescripcion.Text = "";
             // 
             // tableLayoutPanel2
@@ -153,7 +153,7 @@
             this.BtnGuardar.Location = new System.Drawing.Point(3, 3);
             this.BtnGuardar.Name = "BtnGuardar";
             this.BtnGuardar.Size = new System.Drawing.Size(75, 23);
-            this.BtnGuardar.TabIndex = 8;
+            this.BtnGuardar.TabIndex = 3;
             this.BtnGuardar.Text = "Guardar";
             this.BtnGuardar.UseVisualStyleBackColor = true;
             this.BtnGuardar.Click += new System.EventHandler(this.BtnGuardar_Click);
@@ -163,7 +163,7 @@
             this.BtnCancelar.Location = new System.Drawing.Point(96, 3);
             this.BtnCancelar.Name = "BtnCancelar";
             this.BtnCancelar.Size = new System.Drawing.Size(75, 23);
-            this.BtnCancelar.TabIndex = 9;
+            this.BtnCancelar.TabIndex = 4;
             this.BtnCancelar.Text = "Cancelar";
             this.BtnCancelar.UseVisualStyleBackColor = true;
             this.BtnCancelar.Click += new System.EventHandler(this.BtnCancelar_Click);
@@ -173,7 +173,7 @@
             this.BtnBorrar.Location = new System.Drawing.Point(182, 3);
             this.BtnBorrar.Name = "BtnBorrar";
             this.BtnBorrar.Size = new System.Drawing.Size(75, 23);
-            this.BtnBorrar.TabIndex = 12;
+            this.BtnBorrar.TabIndex = 5;
             this.BtnBorrar.Text = "Borrar";
             this.BtnBorrar.UseVisualStyleBackColor = true;
             this.BtnBorrar.Click += new System.EventHandler(this.BtnBorrar_Click);

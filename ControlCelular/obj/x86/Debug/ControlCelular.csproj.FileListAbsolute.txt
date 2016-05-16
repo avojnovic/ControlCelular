@@ -1,10 +1,6 @@
 C:\Users\avojn\Apps\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.Main.resources
 C:\Users\avojn\Apps\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.Properties.Resources.resources
 C:\Users\avojn\Apps\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.csproj.GenerateResource.Cache
-C:\Users\avojn\Apps\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.exe
-C:\Users\avojn\Apps\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.pdb
-C:\Users\avojn\Apps\ControlCelular\ControlCelular\bin\Debug\ControlCelular.exe
-C:\Users\avojn\Apps\ControlCelular\ControlCelular\bin\Debug\ControlCelular.pdb
 C:\Users\avojn\Apps\ControlCelular\ControlCelular\bin\Debug\BusinessObjects.dll
 C:\Users\avojn\Apps\ControlCelular\ControlCelular\bin\Debug\DAO.dll
 C:\Users\avojn\Apps\ControlCelular\ControlCelular\bin\Debug\BusinessObjects.pdb
@@ -45,3 +41,9 @@ D:\Proyectos\ControlCelular\ControlCelular\bin\Debug\Control Celular.exe
 D:\Proyectos\ControlCelular\ControlCelular\bin\Debug\Control Celular.pdb
 D:\Proyectos\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.FormLogin.resources
 D:\Proyectos\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.FormProveedor.resources
+C:\Users\avojn\Apps\ControlCelular\ControlCelular\obj\x86\Debug\Control Celular.exe
+C:\Users\avojn\Apps\ControlCelular\ControlCelular\obj\x86\Debug\Control Celular.pdb
+C:\Users\avojn\Apps\ControlCelular\ControlCelular\bin\Debug\Control Celular.exe
+C:\Users\avojn\Apps\ControlCelular\ControlCelular\bin\Debug\Control Celular.pdb
+C:\Users\avojn\Apps\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.FormLogin.resources
+C:\Users\avojn\Apps\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.FormProveedor.resources

@@ -20,6 +20,8 @@ namespace ControlCelular
         public Dictionary<int, Proveedor> _proveedores;
         public Dictionary<int, Marca> _marcas;
         public Dictionary<int, SistemaOperativo> _sistemasOperativos;
+        public Dictionary<int, ColorTelefono> _colores;
+
         public List<Proveedor> _proveedoresNoBorrados;
         public FormTelefono()
         {
@@ -36,15 +38,27 @@ namespace ControlCelular
             CmbProveedor.ValueMember = "Id";
 
             CmbProveedor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
- 
+
+
+
+
+            cmbColor.DataSource = (from o in _colores.Values.ToList() where o.Borrado == false select o).ToList();
+            cmbColor.DisplayMember = "Nombre";
+            cmbColor.ValueMember = "Id";
+            cmbColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 
 
             if (_telefono != null)
             {
                 TxtId.Text = _telefono.Id.ToString();
-                TxtColor.Text = _telefono.Color;
+
+                if (!_telefono.Color.Borrado)
+                    cmbColor.SelectedValue = _telefono.Color.Id;
+
+
                 TxtImei.Text = _telefono.Imei.ToString();
                 txtCosto.Text = _telefono.Costo.ToString();
+                txtFechaCompra.Text = _telefono.FechaCompra.ToShortDateString();
                 List<Modelo> l = new List<Modelo>();
                 l.Add(_telefono.Modelo);
                 setGridViewModelos(l);
@@ -55,6 +69,8 @@ namespace ControlCelular
             }
             else
             {
+                txtFechaCompra.Text = DateTime.Today.ToShortDateString();
+
                 BtnBorrar.Visible = false;
                 refreshModelos(false);
                 dataGridViewModelos.ClearSelection();
@@ -65,15 +81,7 @@ namespace ControlCelular
         private bool validar()
         {
             bool ok = true;
-            if (TxtColor.Text.Trim() == String.Empty)
-            {
-                TxtColor.BackColor = Color.LightCyan;
-                ok = false;
-            }
-            else
-            {
-                TxtColor.BackColor = Color.White;
-            }
+           
             if (txtCosto.Text.Trim() == String.Empty)
             {
                 txtCosto.BackColor = Color.LightCyan;
@@ -83,6 +91,17 @@ namespace ControlCelular
             {
                 txtCosto.BackColor = Color.White;
             }
+            DateTime dateTime;
+            if (!DateTime.TryParse(txtFechaCompra.Text, out dateTime))
+            {
+                txtFechaCompra.BackColor = Color.LightCyan;
+                ok = false;
+            }
+            else
+            {
+                txtFechaCompra.BackColor = Color.White;
+            }
+
             if (TxtImei.Text.Trim().Length !=15)
             {
                 TxtImei.BackColor = Color.LightCyan;
@@ -148,37 +167,55 @@ namespace ControlCelular
 
         }
 
+        private void btnGuardaryNuevo_Click(object sender, EventArgs e)
+        {
+            if (validar())
+            {
+                save();
+                _telefono = null;
+                TxtImei.Text = "";
+                TxtId.Text = "";
+                lblMensaje.Text = "Telefono Guardado Correctamente";
+                TxtImei.Focus();
+            }
+        }
+
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
             if (validar())
             {
-                bool insert = false;
-                if (_telefono == null)
-                {//Nuevo
-
-                   _telefono = new Telefono();
-                    insert = true;
-                    _telefono.Venta = 0;
-                }
-
-                _telefono.Imei = TxtImei.Text.ToString();
-                _telefono.Modelo = (Modelo)dataGridViewModelos.CurrentRow.DataBoundItem;
-                _telefono.Proveedor = (Proveedor)CmbProveedor.SelectedItem;
-                _telefono.Color = TxtColor.Text.ToString();
-                _telefono.Costo = decimal.Parse(txtCosto.Text.ToString());
-
-
-                _telefono.Borrado = false;
-
-                if (insert)
-                    TelefonoDAO.insert(Application.StartupPath, _telefono);
-                else
-                    TelefonoDAO.update(Application.StartupPath, _telefono);
-
+                save();
 
                 this.Close();
             }
       
+        }
+
+        private void save()
+        {
+            bool insert = false;
+            if (_telefono == null)
+            {//Nuevo
+
+                _telefono = new Telefono();
+                insert = true;
+                _telefono.Venta = 0;
+            }
+
+            _telefono.FechaCompra = DateTime.Parse(txtFechaCompra.Text);
+            _telefono.Imei = TxtImei.Text.ToString();
+            _telefono.Modelo = (Modelo)dataGridViewModelos.CurrentRow.DataBoundItem;
+            _telefono.Proveedor = (Proveedor)CmbProveedor.SelectedItem;
+            _telefono.Color = (ColorTelefono)cmbColor.SelectedItem;
+            _telefono.Costo = decimal.Parse(txtCosto.Text.ToString());
+
+
+            _telefono.Borrado = false;
+
+            if (insert)
+                TelefonoDAO.insert(Application.StartupPath, _telefono);
+            else
+                TelefonoDAO.update(Application.StartupPath, _telefono);
         }
 
         private void BtnCancelar_Click(object sender, EventArgs e)
@@ -277,16 +314,18 @@ namespace ControlCelular
         {
             if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
             {
+               
                 e.Handled = true;
                 return;
             }
 
             if (TxtImei.Text.Length >= 15 && (e.KeyChar != (char)Keys.Back))
             {
+              
                 e.Handled = true;
                 return;
             }
-            
+            lblMensaje.Text = "";
         }
 
         static bool IsValidIMEI(string imei)
@@ -348,6 +387,8 @@ namespace ControlCelular
                 TxtImei.BackColor = Color.White;
             }
         }
+
+      
 
        
 

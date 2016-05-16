@@ -17,6 +17,7 @@ namespace ControlCelular
     {
 
         Dictionary<int, Marca> _marcas = new Dictionary<int, Marca>();
+        Dictionary<int, ColorTelefono> _colores = new Dictionary<int, ColorTelefono>();
         Dictionary<int, SistemaOperativo> _sistemasOperativos = new Dictionary<int, SistemaOperativo>();
         Dictionary<int, Modelo> _modelos = new Dictionary<int, Modelo>();
         Dictionary<int, Proveedor> _proveedores = new Dictionary<int, Proveedor>();
@@ -49,6 +50,7 @@ namespace ControlCelular
                 loginok = logon.loginok;
                 this.CenterToScreen();
 
+                _colores = ColorDAO.get(Application.StartupPath);
                 _marcas = MarcaDAO.get(Application.StartupPath);
                 _sistemasOperativos = SistemaOperativoDAO.get(Application.StartupPath);
                 _modelos = ModeloDAO.get(Application.StartupPath, _sistemasOperativos, _marcas);
@@ -260,7 +262,7 @@ namespace ControlCelular
             if (fromDB)
                 _clientes = ClienteDAO.get(Application.StartupPath);
 
-            cmbClienteVenta.DataSource = _clientes.Values.ToList();
+            cmbClienteVenta.DataSource = (from o in _clientes.Values.ToList() where o.Borrado == false select o).ToList();
             cmbClienteVenta.DisplayMember = "NombreCompleto";
             cmbClienteVenta.ValueMember = "Id";
         }
@@ -275,6 +277,7 @@ namespace ControlCelular
                     txtImeiVenta.BackColor = Color.LightGreen;
                     txtCostoVenta.Text = t.Costo.ToString();
                     txtEquipoVenta.Text = t.ModeloDescripcion;
+                    txtPrecioVenta.Focus();
                 }
                 else
                 {
@@ -309,25 +312,35 @@ namespace ControlCelular
 
         private void txtPrecioVenta_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back) && (e.KeyChar != Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)))
+            if (txtPrecioVenta.Text.Length > 0 && e.KeyChar == (char)Keys.Enter)
             {
-                e.Handled = true;
-                return;
+                agregarVenta();
             }
             else
             {
-                if (e.KeyChar == Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator) && txtPrecioVenta.Text.Contains(Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)))
+
+                if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back) && (e.KeyChar != Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)))
                 {
                     e.Handled = true;
                     return;
                 }
                 else
                 {
-                    txtPrecioVenta.BackColor = Color.White;
+                    if (e.KeyChar == Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator) && txtPrecioVenta.Text.Contains(Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)))
+                    {
+                        e.Handled = true;
+                        return;
+                    }
+                    else
+                    {
+                        txtPrecioVenta.BackColor = Color.White;
+                    }
+
+
                 }
 
-
             }
+         
         }
 
         private Telefono validarTelefono(string imei)
@@ -345,6 +358,13 @@ namespace ControlCelular
         }
 
         private void btnAgregarVenta_Click(object sender, EventArgs e)
+        {
+            agregarVenta();
+
+
+        }
+
+        private void agregarVenta()
         {
             bool ok = true;
             if (txtImeiVenta.Text.Length == 15)
@@ -404,11 +424,8 @@ namespace ControlCelular
                 }
 
             }
-            else
-            {
 
-            }
-
+            txtImeiVenta.Focus();
         }
 
         private void refreshGrillaVenta(List<Venta> _venta)
@@ -565,7 +582,7 @@ namespace ControlCelular
         private void refreshTelefonos(bool fromDB)
         {
             if (fromDB)
-                _telefonos = TelefonoDAO.get(Application.StartupPath, _modelos, _proveedores);
+                _telefonos = TelefonoDAO.get(Application.StartupPath, _modelos, _proveedores, _colores);
 
 
             setGridViewTelefonos(_telefonos.Values.ToList());
@@ -579,9 +596,12 @@ namespace ControlCelular
             dataGridViewTelefonos.Columns["Borrado"].Visible = false;
             dataGridViewTelefonos.Columns["Modelo"].Visible = false;
             dataGridViewTelefonos.Columns["Venta"].Visible = false;
+            dataGridViewTelefonos.Columns["Color"].Visible = false;
             dataGridViewTelefonos.Columns["VendidoBool"].Visible = false;
+            dataGridViewTelefonos.Columns["ColorNombre"].HeaderText = "Color";
             dataGridViewTelefonos.Columns["ProveedorNombre"].HeaderText = "Nombre Proveedor";
             dataGridViewTelefonos.Columns["ModeloDescripcion"].HeaderText = "Modelo";
+            dataGridViewTelefonos.Columns["FechaCompra"].HeaderText = "Fecha Compra";
             dataGridViewTelefonos.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
 
@@ -602,7 +622,7 @@ namespace ControlCelular
             if (txtBuscarTefonos.Text.Length > 0)
             {
                 var res = (from o in _telefonos.Values.ToList()
-                           where o.Borrado == false && (o.Imei.Trim().ToUpper().Contains(txtBuscarTefonos.Text.Trim().ToUpper()) || o.Color.Trim().ToUpper().Contains(txtBuscarTefonos.Text.Trim().ToUpper()) || o.ModeloDescripcion.Trim().ToUpper().Contains(txtBuscarTefonos.Text.Trim().ToUpper()) || o.ProveedorNombre.Trim().ToUpper().Contains(txtBuscarTefonos.Text.Trim().ToUpper()))
+                           where o.Borrado == false && (o.Imei.Trim().ToUpper().Contains(txtBuscarTefonos.Text.Trim().ToUpper()) || o.ColorNombre.Trim().ToUpper().Contains(txtBuscarTefonos.Text.Trim().ToUpper()) || o.ModeloDescripcion.Trim().ToUpper().Contains(txtBuscarTefonos.Text.Trim().ToUpper()) || o.ProveedorNombre.Trim().ToUpper().Contains(txtBuscarTefonos.Text.Trim().ToUpper()))
                            select o);
 
 
@@ -624,6 +644,7 @@ namespace ControlCelular
             _formTelefono._telefonos = _telefonos;
             _formTelefono._modelos = _modelos;
             _formTelefono._proveedores = _proveedores;
+            _formTelefono._colores = _colores;
             _formTelefono.ShowDialog();
 
             refreshTelefonos(true);
@@ -639,6 +660,7 @@ namespace ControlCelular
             _formTelefono._telefonos = _telefonos;
             _formTelefono._modelos = _modelos;
             _formTelefono._proveedores = _proveedores;
+            _formTelefono._colores = _colores;
             _formTelefono._telefono = currentObject;
             _formTelefono.ShowDialog();
 

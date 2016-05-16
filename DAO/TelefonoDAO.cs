@@ -12,7 +12,7 @@ namespace DAO
     public static class TelefonoDAO
     {
 
-        public static Dictionary<int, Telefono> get(string dbPath, Dictionary<int, Modelo> _modelos, Dictionary<int, Proveedor> _proveedores)
+        public static Dictionary<int, Telefono> get(string dbPath, Dictionary<int, Modelo> _modelos, Dictionary<int, Proveedor> _proveedores, Dictionary<int, ColorTelefono> _colores)
         {
             string connection = DAO.Properties.Settings.Default.ConnectionString;
             connection = connection.Replace("PATH", dbPath);
@@ -31,7 +31,7 @@ namespace DAO
 
                 x.Id = reader.GetInt32(0);
                 x.Imei = reader.GetString(1);
-                x.Color = reader.GetString(2);
+                x.Color = _colores[reader.GetInt32(2)];
                 x.Modelo = _modelos[reader.GetInt32(3)];
                 x.Proveedor = _proveedores[reader.GetInt32(4)];
                 x.Borrado = reader.GetBoolean(5);
@@ -40,6 +40,9 @@ namespace DAO
                     x.Venta = reader.GetInt32(7);
                 else
                     x.Venta = 0;
+                if (!reader.IsDBNull(8))
+                    x.FechaCompra = reader.GetDateTime(8);
+
                 _list.Add(x.Id, x);
             }
             reader.Close();
@@ -55,8 +58,8 @@ namespace DAO
             OleDbConnection connection = new OleDbConnection(strconnection);
             OleDbCommand cmd = new OleDbCommand();
 
-            cmd.CommandText = @"INSERT INTO TELEFONO (Imei,Color,Modelo,Proveedor,Borrado,Costo,Venta) 
-                                VALUES(@Imei,@Color,@Modelo,@Proveedor,@Borrado,@Costo,@Venta)";
+            cmd.CommandText = @"INSERT INTO TELEFONO (Imei,Color,Modelo,Proveedor,Borrado,Costo,Venta,FechaCompra) 
+                                VALUES(@Imei,@Color,@Modelo,@Proveedor,@Borrado,@Costo,@Venta,@FechaCompra)";
 
             cmd.CommandType = CommandType.Text;
             addParameters(x, cmd,false);
@@ -82,12 +85,13 @@ namespace DAO
         private static void addParameters(Telefono x, OleDbCommand cmd, bool id)
         {
             cmd.Parameters.Add("@Imei", OleDbType.VarChar, 255).Value = x.Imei;
-            cmd.Parameters.Add("@Color", OleDbType.VarChar, 255).Value = x.Color;
+            cmd.Parameters.Add("@Color", OleDbType.VarChar, 255).Value = x.Color.Id;
             cmd.Parameters.Add("@Modelo", OleDbType.Integer, 255).Value = x.Modelo.Id;
             cmd.Parameters.Add("@Proveedor", OleDbType.Integer, 255).Value = x.Proveedor.Id;
             cmd.Parameters.Add("@Borrado", OleDbType.Boolean, 255).Value = x.Borrado;
             cmd.Parameters.Add("@Costo", OleDbType.Currency, 255).Value = x.Costo;
             cmd.Parameters.Add("@Venta", OleDbType.Integer, 255).Value = x.Venta;
+            cmd.Parameters.Add("@FechaCompra", OleDbType.Date, 255).Value = x.FechaCompra;
 
             if (id)
             {
@@ -102,7 +106,7 @@ namespace DAO
             OleDbConnection connection = new OleDbConnection(strconnection);
             OleDbCommand cmd = new OleDbCommand();
 
-            cmd.CommandText = @"UPDATE Telefono SET Imei=@Imei,Color=@Color,Modelo=@Modelo,Proveedor=@Proveedor,Borrado=@Borrado,Costo=@Costo,Venta=@Venta WHERE ID=@ID";
+            cmd.CommandText = @"UPDATE Telefono SET Imei=@Imei,Color=@Color,Modelo=@Modelo,Proveedor=@Proveedor,Borrado=@Borrado,Costo=@Costo,Venta=@Venta, FechaCompra=@FechaCompra WHERE ID=@ID";
             cmd.CommandType = CommandType.Text;
             addParameters(x, cmd, true);
             cmd.Connection = connection;

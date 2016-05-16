@@ -81,28 +81,28 @@
             // txtUsuario
             // 
             this.txtUsuario.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtUsuario.Location = new System.Drawing.Point(108, 27);
+            this.txtUsuario.Location = new System.Drawing.Point(109, 27);
             this.txtUsuario.Name = "txtUsuario";
-            this.txtUsuario.Size = new System.Drawing.Size(260, 20);
-            this.txtUsuario.TabIndex = 2;
+            this.txtUsuario.Size = new System.Drawing.Size(259, 20);
+            this.txtUsuario.TabIndex = 0;
             this.txtUsuario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUsuario_KeyPress);
             // 
             // txtPassword
             // 
             this.txtPassword.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPassword.Location = new System.Drawing.Point(108, 85);
+            this.txtPassword.Location = new System.Drawing.Point(109, 85);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(260, 20);
-            this.txtPassword.TabIndex = 3;
+            this.txtPassword.Size = new System.Drawing.Size(259, 20);
+            this.txtPassword.TabIndex = 1;
             this.txtPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPassword_KeyPress);
             // 
             // btnIngresar
             // 
-            this.btnIngresar.Location = new System.Drawing.Point(108, 119);
+            this.btnIngresar.Location = new System.Drawing.Point(109, 119);
             this.btnIngresar.Name = "btnIngresar";
             this.btnIngresar.Size = new System.Drawing.Size(75, 23);
-            this.btnIngresar.TabIndex = 4;
+            this.btnIngresar.TabIndex = 2;
             this.btnIngresar.Text = "Ingresar";
             this.btnIngresar.UseVisualStyleBackColor = true;
             this.btnIngresar.Click += new System.EventHandler(this.btnIngresar_Click);
