@@ -10,6 +10,7 @@ using BusinessObjects;
 using DAO;
 using System.Globalization;
 using System.IO;
+using Excel = Microsoft.Office.Interop.Excel; 
 
 namespace ControlCelular
 {
@@ -143,6 +144,136 @@ namespace ControlCelular
             fs.Close();
         }
 
+        private void ToXls(DataGridView dGV, string filename, string sheet)
+        {
+            Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
+            try
+            {
+                
+
+                if (xlApp == null)
+                {
+                    MessageBox.Show("Error en Excel");
+                    return;
+                }
+
+
+                Excel.Workbook xlWorkBook;
+                Excel.Worksheet xlWorkSheet;
+                object misValue = System.Reflection.Missing.Value;
+
+                xlWorkBook = xlApp.Workbooks.Add(misValue);
+                xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+                xlWorkSheet.Name = sheet;
+                // xlWorkSheet.Cells[1, 1] = "Sheet 1 content";
+
+                int col = 1;
+                int row = 1;
+                for (int j = 0; j < dGV.Columns.Count; j++)
+                {
+
+                    if (dGV.Columns[j].Visible)
+                    {
+                        xlWorkSheet.Cells[row, col] = Convert.ToString(dGV.Columns[j].HeaderText);
+                        col++;
+                    }
+                    else
+                    {
+
+                    }
+                }
+
+                // Export data.
+                col = 1;
+                row = 2;
+                for (int i = 0; i < dGV.RowCount; i++)
+                {
+
+                    for (int j = 0; j < dGV.Rows[i].Cells.Count; j++)
+                    {
+                        if (dGV.Rows[i].Cells[j].Visible)
+                        {
+                            if (dGV.Rows[i].Cells[j].ValueType == typeof(System.DateTime))
+                            {
+                                if (((DateTime)dGV.Rows[i].Cells[j].Value).Year > 1990)
+                                    xlWorkSheet.Cells[row, col] = ((DateTime)dGV.Rows[i].Cells[j].Value).Date;
+                            }
+                            else
+                            {
+
+                                xlWorkSheet.Cells[row, col] = dGV.Rows[i].Cells[j].Value;
+                            }
+                            col++;
+                        }
+
+                    }
+
+                    row++;
+                    col = 1;
+                }
+
+                // define points for selecting a range
+                // point 1 is the top, leftmost cell
+                Excel.Range oRng1 = xlWorkSheet.Range["A1"];
+                // point two is the bottom, rightmost cell
+                Excel.Range oRng2 = xlWorkSheet.Range["A1"].End[Excel.XlDirection.xlToRight]
+                    .End[Excel.XlDirection.xlDown];
+
+                // define the actual range we want to select
+                Excel.Range oRng = xlWorkSheet.Range[oRng1, oRng2];
+                oRng.Select(); // and select it
+
+
+                xlWorkSheet.ListObjects.AddEx(Excel.XlListObjectSourceType.xlSrcRange, oRng, misValue, Microsoft.Office.Interop.Excel.XlYesNoGuess.xlYes, misValue).Name = "MyTableStyle";
+                xlWorkSheet.ListObjects.get_Item("MyTableStyle").TableStyle = "TableStyleMedium1";
+
+
+                // Fix first row
+                //xlWorkSheet.Activate();
+                xlWorkSheet.Application.ActiveWindow.SplitRow = 1;
+                xlWorkSheet.Application.ActiveWindow.FreezePanes = true;
+                // Now apply autofilter
+                Excel.Range firstRow = (Excel.Range)xlWorkSheet.Rows[1];
+                firstRow.Activate();
+                firstRow.Select();
+                //firstRow.AutoFilter(1,Type.Missing, Excel.XlAutoFilterOperator.xlAnd,Type.Missing,true);
+
+                xlWorkSheet.Columns.AutoFit();
+                xlWorkBook.SaveAs(filename, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+                xlWorkBook.Close(true, misValue, misValue);
+                xlApp.Quit();
+
+                releaseObject(xlWorkSheet);
+                releaseObject(xlWorkBook);
+                releaseObject(xlApp);
+                MessageBox.Show("Excel Generado Correctamente: " + filename);
+            }
+            catch (Exception ex)
+            {
+                releaseObject(xlApp);
+            }
+           
+        }
+
+        private void releaseObject(object obj)
+        {
+            try
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
+                obj = null;
+            }
+            catch (Exception ex)
+            {
+                obj = null;
+                MessageBox.Show("Exception Occured while releasing object " + ex.ToString());
+            }
+            finally
+            {
+                GC.Collect();
+            }
+        }
+
+
         #region Proveedores
         private void refreshProveedores(bool fromDB)
         {
@@ -166,11 +297,11 @@ namespace ControlCelular
         {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "Excel Documents (*.xls)|*.xls";
-            sfd.FileName = "export.xls";
+            sfd.FileName = "Proveedores.xls";
             if (sfd.ShowDialog() == DialogResult.OK)
             {
 
-                ToCsV(dataGridViewProveedor, sfd.FileName);
+                ToXls(dataGridViewProveedor, sfd.FileName,"Proveedores");
 
             }
         }
@@ -229,11 +360,11 @@ namespace ControlCelular
         {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "Excel Documents (*.xls)|*.xls";
-            sfd.FileName = "export.xls";
+            sfd.FileName = "Historial Ventas.xls";
             if (sfd.ShowDialog() == DialogResult.OK)
             {
 
-                ToCsV(dataGridViewHistorialVentas, sfd.FileName);
+               ToXls(dataGridViewHistorialVentas, sfd.FileName,"Historial Ventas");
 
             }
         }
@@ -609,11 +740,13 @@ namespace ControlCelular
         {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "Excel Documents (*.xls)|*.xls";
-            sfd.FileName = "export.xls";
+            sfd.FileName = "Telefonos.xls";
             if (sfd.ShowDialog() == DialogResult.OK)
             {
 
-                ToCsV(dataGridViewTelefonos, sfd.FileName);
+               // toXls(dataGridViewTelefonos, sfd.FileName);
+
+                ToXls(dataGridViewTelefonos, sfd.FileName,"Telefonos");
 
             }
         }
@@ -694,11 +827,10 @@ namespace ControlCelular
         {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "Excel Documents (*.xls)|*.xls";
-            sfd.FileName = "export.xls";
+            sfd.FileName = "Modelos.xls";
             if (sfd.ShowDialog() == DialogResult.OK)
             {
-
-                ToCsV(dataGridViewModelos, sfd.FileName);
+                ToXls(dataGridViewModelos, sfd.FileName,"Modelos");
 
             }
         }
@@ -776,11 +908,11 @@ namespace ControlCelular
         {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "Excel Documents (*.xls)|*.xls";
-            sfd.FileName = "export.xls";
+            sfd.FileName = "Clientes.xls";
             if (sfd.ShowDialog() == DialogResult.OK)
             {
 
-                ToCsV(dataGridViewClientes, sfd.FileName);
+                ToXls(dataGridViewClientes, sfd.FileName,"Clientes");
 
             }
         }

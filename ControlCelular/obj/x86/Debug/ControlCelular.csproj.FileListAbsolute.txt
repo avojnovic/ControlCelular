@@ -47,3 +47,4 @@ C:\Users\avojn\Apps\ControlCelular\ControlCelular\bin\Debug\Control Celular.exe
 C:\Users\avojn\Apps\ControlCelular\ControlCelular\bin\Debug\Control Celular.pdb
 C:\Users\avojn\Apps\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.FormLogin.resources
 C:\Users\avojn\Apps\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.FormProveedor.resources
+C:\Users\avojn\Apps\ControlCelular\ControlCelular\obj\x86\Debug\ControlCelular.csproj.ResolveComReference.cache
