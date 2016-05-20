@@ -10,7 +10,7 @@ using BusinessObjects;
 using DAO;
 using System.Globalization;
 using System.IO;
-using Excel = Microsoft.Office.Interop.Excel; 
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace ControlCelular
 {
@@ -26,6 +26,7 @@ namespace ControlCelular
         Dictionary<int, Cliente> _clientes = new Dictionary<int, Cliente>();
         Dictionary<string, Venta> _venta = new Dictionary<string, Venta>();
         Dictionary<int, Venta> _historialVentas = new Dictionary<int, Venta>();
+        Dictionary<int, Pago> _pagos = new Dictionary<int, Pago>();
         bool loginok = false;
         public Main()
         {
@@ -84,7 +85,7 @@ namespace ControlCelular
                 refreshTelefonos(true);
             }
 
-            if (name == "tabModelos" )
+            if (name == "tabModelos")
             {
                 refreshModelos(true);
             }
@@ -93,7 +94,7 @@ namespace ControlCelular
             {
                 refreshClientes(true);
             }
-            if (name == "tabVentas" && dataGridViewVentas.DataSource==null)
+            if (name == "tabVentas" && dataGridViewVentas.DataSource == null)
             {
                 refreshVentas(false);
             }
@@ -107,8 +108,14 @@ namespace ControlCelular
                 refreshProveedores(true);
             }
 
+            if (name == "tabPagos")
+            {
+                refreshPagos(true);
+            }
 
         }
+
+
 
         private void ToCsV(DataGridView dGV, string filename)
         {
@@ -149,7 +156,7 @@ namespace ControlCelular
             Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
             try
             {
-                
+
 
                 if (xlApp == null)
                 {
@@ -252,7 +259,7 @@ namespace ControlCelular
             {
                 releaseObject(xlApp);
             }
-           
+
         }
 
         private void releaseObject(object obj)
@@ -301,7 +308,7 @@ namespace ControlCelular
             if (sfd.ShowDialog() == DialogResult.OK)
             {
 
-                ToXls(dataGridViewProveedor, sfd.FileName,"Proveedores");
+                ToXls(dataGridViewProveedor, sfd.FileName, "Proveedores");
 
             }
         }
@@ -364,7 +371,7 @@ namespace ControlCelular
             if (sfd.ShowDialog() == DialogResult.OK)
             {
 
-               ToXls(dataGridViewHistorialVentas, sfd.FileName,"Historial Ventas");
+                ToXls(dataGridViewHistorialVentas, sfd.FileName, "Historial Ventas");
 
             }
         }
@@ -471,7 +478,7 @@ namespace ControlCelular
                 }
 
             }
-         
+
         }
 
         private Telefono validarTelefono(string imei)
@@ -564,7 +571,7 @@ namespace ControlCelular
             if (_venta.Count > 0)
             {
                 cmbClienteVenta.Enabled = false;
-               txtTotal.Text= _venta.AsEnumerable().Sum(o => o.Monto).ToString();
+                txtTotal.Text = _venta.AsEnumerable().Sum(o => o.Monto).ToString();
             }
             else
             {
@@ -623,7 +630,7 @@ namespace ControlCelular
                         foreach (Venta x in _venta.Values.ToList())
                         {
                             VentaDAO.insert(Application.StartupPath, x);
-                            
+
                         }
 
                         decimal monto = 0;
@@ -632,14 +639,18 @@ namespace ControlCelular
 
                         monto = monto - decimal.Parse(txtPagadoVenta.Text.ToString());
                         Cliente cli = (Cliente)cmbClienteVenta.SelectedItem;
-                        cli.Deuda = cli.Deuda + monto;
+                      
 
                         if (monto != 0)
                         {
-                            ClienteDAO.update(Application.StartupPath, cli);
+                            Pago p=new Pago();
+                            p.Cliente=cli;
+                            p.Fecha=DateTime.Today;
+                            p.MontoPago=monto*-1;
+                            PagoDAO.insert(Application.StartupPath, p);
                         }
 
-                        _venta = new Dictionary<string,Venta>();
+                        _venta = new Dictionary<string, Venta>();
                         dataGridViewVentas.DataSource = null;
                         txtCostoVenta.Text = "";
                         txtEquipoVenta.Text = "";
@@ -663,7 +674,7 @@ namespace ControlCelular
             DialogResult dialogResult = MessageBox.Show("¿Esta seguro que desea cancelar la venta?", "Cancelar", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                _venta = new Dictionary<string,Venta>();
+                _venta = new Dictionary<string, Venta>();
                 dataGridViewVentas.DataSource = null;
                 txtCostoVenta.Text = "";
                 txtEquipoVenta.Text = "";
@@ -744,9 +755,9 @@ namespace ControlCelular
             if (sfd.ShowDialog() == DialogResult.OK)
             {
 
-               // toXls(dataGridViewTelefonos, sfd.FileName);
+                // toXls(dataGridViewTelefonos, sfd.FileName);
 
-                ToXls(dataGridViewTelefonos, sfd.FileName,"Telefonos");
+                ToXls(dataGridViewTelefonos, sfd.FileName, "Telefonos");
 
             }
         }
@@ -813,11 +824,11 @@ namespace ControlCelular
 
             foreach (Modelo item in _modelos.Values.ToList())
             {
-                 var res = (from o in _telefonos.Values.ToList()
-                           where o.Modelo.Id==item.Id && !o.VendidoBool && !o.Borrado
+                var res = (from o in _telefonos.Values.ToList()
+                           where o.Modelo.Id == item.Id && !o.VendidoBool && !o.Borrado
                            select o);
 
-                 item.Stock = res.ToList().Count();
+                item.Stock = res.ToList().Count();
             }
 
             setGridViewModelos(_modelos.Values.ToList());
@@ -830,7 +841,7 @@ namespace ControlCelular
             sfd.FileName = "Modelos.xls";
             if (sfd.ShowDialog() == DialogResult.OK)
             {
-                ToXls(dataGridViewModelos, sfd.FileName,"Modelos");
+                ToXls(dataGridViewModelos, sfd.FileName, "Modelos");
 
             }
         }
@@ -912,7 +923,7 @@ namespace ControlCelular
             if (sfd.ShowDialog() == DialogResult.OK)
             {
 
-                ToXls(dataGridViewClientes, sfd.FileName,"Clientes");
+                ToXls(dataGridViewClientes, sfd.FileName, "Clientes");
 
             }
         }
@@ -972,20 +983,146 @@ namespace ControlCelular
 
         #endregion
 
+        #region Pagos
 
-        
+        private void btnRegistrarPago_Click(object sender, EventArgs e)
+        {
+            registrarPago();
+        }
+
+        private void refreshPagos(bool fromDB)
+        {
+            if (fromDB)
+            {
+                _clientes = ClienteDAO.get(Application.StartupPath);
+                _pagos = PagoDAO.get(Application.StartupPath, _clientes);
+            }
+
+            cmbClientesRegistrarPago.DataSource = (from o in _clientes.Values.ToList() where o.Borrado == false select o).ToList();
+            cmbClientesRegistrarPago.DisplayMember = "NombreCompleto";
+            cmbClientesRegistrarPago.ValueMember = "Id";
+
+            setGridViewPagos(_pagos.Values.ToList());
+
+
+            txtTotalPagos.Text = _pagos.Values.ToList().AsEnumerable().Sum(o => o.MontoPago).ToString();
+
+        }
+
+        private void btnExportarPagos_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Excel Documents (*.xls)|*.xls";
+            sfd.FileName = "Pagos.xls";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+
+                ToXls(dataGridViewPagos, sfd.FileName, "Pagos");
+
+            }
+        }
+
+
+        private void setGridViewPagos(List<Pago> list)
+        {
+            dataGridViewPagos.DataSource = list;
+            dataGridViewPagos.Columns["Cliente"].Visible = false;
+            dataGridViewPagos.Columns["ClienteNombre"].HeaderText = "Cliente";
+            dataGridViewPagos.Columns["MontoPago"].HeaderText = "Monto";
+
+            dataGridViewPagos.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+        }
+
+        private void txtPago_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (txtPago.Text.Length > 0 && e.KeyChar == (char)Keys.Enter)
+            {
+                registrarPago();
+            }
+            else
+            {
+
+                if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back) && (e.KeyChar != Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)))
+                {
+                    e.Handled = true;
+                    return;
+                }
+                else
+                {
+                    if (e.KeyChar == Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator) && txtPago.Text.Contains(Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)))
+                    {
+                        e.Handled = true;
+                        return;
+                    }
+                    else
+                    {
+                        txtPago.BackColor = Color.White;
+                    }
+
+
+                }
+
+            }
+        }
+
+        private void registrarPago()
+        {
+
+
+            bool ok = true;
+
+            if (txtPago.Text.Length == 0)
+            {
+                ok = false;
+                txtPago.BackColor = Color.Red;
+            }
+            if (cmbClientesRegistrarPago.SelectedItem == null)
+            {
+                ok = false;
+            }
+
+
+            if (ok)
+            {
+                Pago _p = new Pago();
+
+
+                _p.Cliente = (Cliente)cmbClientesRegistrarPago.SelectedItem;
+                _p.Fecha = DateTime.Today;
+                _p.MontoPago = decimal.Parse(txtPago.Text.ToString());
+
+                PagoDAO.insert(Application.StartupPath, _p);
+                refreshPagos(true);
+
+                txtPago.Text = "";
+
+            }
+
+
+            txtPago.Focus();
+
+        }
+
+        #endregion
 
 
 
-       
 
-       
 
-       
 
-        
 
-        
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

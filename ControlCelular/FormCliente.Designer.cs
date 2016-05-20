@@ -218,6 +218,7 @@
             this.txtDeuda.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDeuda.Location = new System.Drawing.Point(103, 94);
             this.txtDeuda.Name = "txtDeuda";
+            this.txtDeuda.ReadOnly = true;
             this.txtDeuda.Size = new System.Drawing.Size(236, 20);
             this.txtDeuda.TabIndex = 3;
             this.txtDeuda.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDeuda_KeyPress);

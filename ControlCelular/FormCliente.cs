@@ -88,7 +88,7 @@ namespace ControlCelular
 
                 _cliente.Nombre = TxtNombre.Text.ToString();
                 _cliente.Apellido = TxtApellido.Text.ToString();
-                _cliente.Deuda = decimal.Parse(txtDeuda.Text.ToString());
+               // _cliente.Deuda = decimal.Parse(txtDeuda.Text.ToString());
                 _cliente.Borrado = false;
 
                 if (insert)
