@@ -28,6 +28,8 @@ namespace ControlCelular
         Dictionary<int, Venta> _historialVentas = new Dictionary<int, Venta>();
         Dictionary<int, Pago> _pagos = new Dictionary<int, Pago>();
         bool loginok = false;
+
+
         public Main()
         {
             InitializeComponent();
@@ -151,7 +153,7 @@ namespace ControlCelular
             fs.Close();
         }
 
-        private void ToXls(DataGridView dGV, string filename, string sheet)
+        private void ToXls2(DataGridView dGV, string filename, string sheet)
         {
             Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
             try
@@ -261,6 +263,165 @@ namespace ControlCelular
             }
 
         }
+
+        private void ToXls(DataGridView dGV, string filename, string sheet)
+        {
+
+            Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
+            try
+            {
+
+
+                if (xlApp == null)
+                {
+                    MessageBox.Show("Error en Excel");
+                    return;
+                }
+
+
+                Excel.Workbook xlWorkBook;
+                Excel.Worksheet xlWorkSheet;
+                object misValue = System.Reflection.Missing.Value;
+
+                xlWorkBook = xlApp.Workbooks.Add(misValue);
+                xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+                xlWorkSheet.Name = sheet;
+                // xlWorkSheet.Cells[1, 1] = "Sheet 1 content";
+
+                int col = 0;
+                int row = 0;
+
+                int colMax = 0;
+               
+                for (int j = 0; j < dGV.Columns.Count; j++)
+                {
+
+                    if (dGV.Columns[j].Visible)
+                    {
+                       
+                       colMax++;
+                    }
+
+                }
+
+                var data = new object[dGV.RowCount + 1, colMax];
+
+                for (int j = 0; j < dGV.Columns.Count; j++)
+                {
+
+                    if (dGV.Columns[j].Visible)
+                    {
+                       
+                       data[row, col] = Convert.ToString(dGV.Columns[j].HeaderText);
+                       col++;
+                       
+                    }
+
+                }
+
+                // Export data.
+                col = 0;
+                row = 1;
+                for (int i = 0; i < dGV.RowCount; i++)
+                {
+
+                    for (int j = 0; j < dGV.Rows[i].Cells.Count; j++)
+                    {
+                        if (dGV.Rows[i].Cells[j].Visible)
+                        {
+                            if (dGV.Rows[i].Cells[j].ValueType == typeof(System.DateTime))
+                            {
+                                if (((DateTime)dGV.Rows[i].Cells[j].Value).Year > 1990)
+                                    data[row, col] = ((DateTime)dGV.Rows[i].Cells[j].Value).Date;
+                            }
+                            else
+                            {
+
+                                data[row, col] = dGV.Rows[i].Cells[j].Value;
+                            }
+                            col++;
+                        }
+
+                    }
+
+                    row++;
+                    col = 0;
+                }
+
+
+                // Write this data to the excel worksheet.
+                Excel.Range beginWrite = (Excel.Range)xlWorkSheet.Cells[1, 1];
+                Excel.Range endWrite = (Excel.Range)xlWorkSheet.Cells[dGV.RowCount + 1, colMax];
+                Excel.Range sheetData = xlWorkSheet.Range[beginWrite, endWrite];
+                sheetData.Value2 = data;
+
+                //// Additional row, column and table formatting.
+                //xlWorkSheet.Select();
+                //sheetData.Worksheet.ListObjects.Add(XlListObjectSourceType.xlSrcRange,
+                //                                   sheetData,
+                //                                   System.Type.Missing,
+                //                                   XlYesNoGuess.xlYes,
+                //                                   System.Type.Missing).Name = excelWorksheetName[i];
+                //sheetData.Select();
+                //sheetData.Worksheet.ListObjects[excelWorksheetName[i]].TableStyle = tableStyle;
+                //xlWorkSheet.Application.Range["2:2"].Select();
+                //xlWorkSheet.Application.ActiveWindow.FreezePanes = true;
+                //xlWorkSheet.Application.ActiveWindow.DisplayGridlines = false;
+                //xlWorkSheet.Application.Cells.EntireColumn.AutoFit();
+                //xlWorkSheet.Application.Cells.EntireRow.AutoFit();
+
+              
+
+
+                // define points for selecting a range
+                // point 1 is the top, leftmost cell
+                Excel.Range oRng1 = xlWorkSheet.Range["A1"];
+                // point two is the bottom, rightmost cell
+                Excel.Range oRng2 = xlWorkSheet.Range["A1"].End[Excel.XlDirection.xlToRight]
+                    .End[Excel.XlDirection.xlDown];
+
+                // define the actual range we want to select
+                Excel.Range oRng = xlWorkSheet.Range[oRng1, oRng2];
+                oRng.Select(); // and select it
+
+
+                xlWorkSheet.ListObjects.AddEx(Excel.XlListObjectSourceType.xlSrcRange, oRng, misValue, Microsoft.Office.Interop.Excel.XlYesNoGuess.xlYes, misValue).Name = "MyTableStyle";
+                xlWorkSheet.ListObjects.get_Item("MyTableStyle").TableStyle = "TableStyleMedium1";
+
+
+                // Fix first row
+                //xlWorkSheet.Activate();
+                xlWorkSheet.Application.ActiveWindow.SplitRow = 1;
+                xlWorkSheet.Application.ActiveWindow.FreezePanes = true;
+                // Now apply autofilter
+                Excel.Range firstRow = (Excel.Range)xlWorkSheet.Rows[1];
+                firstRow.Activate();
+                firstRow.Select();
+                //firstRow.AutoFilter(1,Type.Missing, Excel.XlAutoFilterOperator.xlAnd,Type.Missing,true);
+                
+                // Select the first cell in the worksheet.
+                xlWorkSheet.Application.Range["$A$2"].Select();
+                xlApp.DisplayAlerts = false;
+                xlWorkSheet.Columns.AutoFit();
+
+
+
+                xlWorkBook.SaveAs(filename, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+                xlWorkBook.Close(false, misValue, misValue);
+                xlApp.Quit();
+
+                releaseObject(xlWorkSheet);
+                releaseObject(xlWorkBook);
+                releaseObject(xlApp);
+                MessageBox.Show("Excel Generado Correctamente: " + filename);
+            }
+            catch (Exception ex)
+            {
+                releaseObject(xlApp);
+            }
+
+        }
+
 
         private void releaseObject(object obj)
         {
@@ -730,10 +891,21 @@ namespace ControlCelular
             setGridViewTelefonos(_telefonos.Values.ToList());
         }
 
+
+        private void checkboxVendidos_CheckedChanged(object sender, EventArgs e)
+        {
+            refreshTelefonos(false);
+        }
+
         private void setGridViewTelefonos(List<Telefono> list)
         {
 
-            dataGridViewTelefonos.DataSource = (from o in list where o.Borrado == false select o).ToList();
+            if(checkboxVendidos.Checked)
+                dataGridViewTelefonos.DataSource = (from o in list where o.Borrado == false select o).ToList();
+            else
+                dataGridViewTelefonos.DataSource = (from o in list where o.Borrado == false && o.VendidoBool==false select o).ToList();
+
+
             dataGridViewTelefonos.Columns["Proveedor"].Visible = false;
             dataGridViewTelefonos.Columns["Borrado"].Visible = false;
             dataGridViewTelefonos.Columns["Modelo"].Visible = false;
@@ -816,6 +988,11 @@ namespace ControlCelular
 
         #region Modelos
 
+        private void checkBoxSinStock_CheckedChanged(object sender, EventArgs e)
+        {
+            refreshModelos(false);
+        }
+
         private void refreshModelos(bool fromDB)
         {
             if (fromDB)
@@ -849,7 +1026,11 @@ namespace ControlCelular
         private void setGridViewModelos(List<Modelo> list)
         {
 
-            dataGridViewModelos.DataSource = (from o in list where o.Borrado == false select o).ToList();
+            if(checkBoxSinStock.Checked)
+                dataGridViewModelos.DataSource = (from o in list where o.Borrado == false select o).ToList();
+            else
+                dataGridViewModelos.DataSource = (from o in list where o.Borrado == false && o.Stock>0 select o).ToList();
+            
             dataGridViewModelos.Columns["SistemaOperativo"].Visible = false;
             dataGridViewModelos.Columns["Marca"].Visible = false;
             dataGridViewModelos.Columns["Modelo1"].HeaderText = "Modelo";
@@ -1104,6 +1285,10 @@ namespace ControlCelular
         }
 
         #endregion
+
+        
+
+       
 
 
 
