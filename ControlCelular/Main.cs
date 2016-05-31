@@ -590,11 +590,12 @@ namespace ControlCelular
 
         private void txtImeiVenta_TextChanged(object sender, EventArgs e)
         {
-            if (txtImeiVenta.Text.Length == 15)
+            if (txtImeiVenta.Text.Length >= 4)
             {
                 Telefono t = validarTelefono(txtImeiVenta.Text.Trim());
                 if (t != null)
                 {
+                    txtImeiVenta.Text = t.Imei;
                     txtImeiVenta.BackColor = Color.LightGreen;
                     txtCostoVenta.Text = t.Costo.ToString();
                     txtEquipoVenta.Text = t.ModeloDescripcion;
@@ -668,7 +669,7 @@ namespace ControlCelular
         {
 
             var res = (from o in _telefonos.Values.ToList()
-                       where o.Imei == imei
+                       where o.Imei.Contains(imei)
                        select o);
 
             if (res.ToList().Count() == 1)
@@ -1264,7 +1265,7 @@ namespace ControlCelular
             else
             {
 
-                if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back) && (e.KeyChar != Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)))
+                if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != '-') && (e.KeyChar != (char)Keys.Back) && (e.KeyChar != Convert.ToChar(CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator)))
                 {
                     e.Handled = true;
                     return;
@@ -1278,7 +1279,15 @@ namespace ControlCelular
                     }
                     else
                     {
-                        txtPago.BackColor = Color.White;
+                        if ((e.KeyChar == '-') && txtPago.Text.Length>0)
+                        {
+                            e.Handled = true;
+                            return;
+                        }
+                        else
+                        {
+                            txtPago.BackColor = Color.White;
+                        }
                     }
 
 
