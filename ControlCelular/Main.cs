@@ -99,6 +99,7 @@ namespace ControlCelular
             if (name == "tabVentas" && dataGridViewVentas.DataSource == null)
             {
                 refreshVentas(false);
+                _historialVentas = VentaDAO.get(Application.StartupPath, _telefonos, _clientes);
             }
             if (name == "tabHistorialVentas")
             {
@@ -553,6 +554,27 @@ namespace ControlCelular
             dataGridViewHistorialVentas.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
 
+
+        private void txtHistorialVentas_TextChanged(object sender, EventArgs e)
+        {
+            if (txtHistorialVentas.Text.Length > 0)
+            {
+                var res = (from o in _historialVentas.Values.ToList()
+                           where o.Borrado == false && (o.TelefonoImei.ToUpper().Contains(txtHistorialVentas.Text.Trim().ToUpper()) || o.Monto.ToString().Trim().ToUpper().Contains(txtHistorialVentas.Text.Trim().ToUpper()) || o.ClienteNombre.Trim().ToUpper().Contains(txtHistorialVentas.Text.Trim().ToUpper()) || o.Fecha.ToShortDateString().Contains(txtHistorialVentas.Text.Trim().ToUpper()))
+                           select o);
+
+
+                setGridViewHistorialVentas((List<Venta>)res.ToList());
+
+            }
+            else if (txtHistorialVentas.Text.Length == 0)
+            {
+
+                setGridViewHistorialVentas(_historialVentas.Values.ToList());
+
+            }
+        }
+
         #endregion
 
         #region Ventas
@@ -678,8 +700,27 @@ namespace ControlCelular
                 {
                     if (t.VendidoBool)
                     {
-                        ok = false;
-                        MessageBox.Show("Telefono ya fue vendido");
+                       
+                        DialogResult dialogResult;
+                        if (_historialVentas.ContainsKey(t.Venta))
+                        {
+                            dialogResult = MessageBox.Show("Telefono ya fue vendido a: " + _historialVentas[t.Venta].ClienteNombre+ ", ¿Desea Transferirlo?", "Transferir", MessageBoxButtons.YesNo);
+                        }
+                        else
+                        {
+                            dialogResult = MessageBox.Show("Telefono ya fue vendido, ¿Desea Transferirlo?", "Transferir", MessageBoxButtons.YesNo);
+                        }
+                      
+
+                      
+                        if(dialogResult == DialogResult.Yes)
+                        {
+                            ok = true;
+                        }
+                        else if (dialogResult == DialogResult.No)
+                        {
+                            ok = false;
+                        }
 
                     }
                 }
@@ -1285,6 +1326,8 @@ namespace ControlCelular
         }
 
         #endregion
+
+       
 
         
 
